@@ -7,9 +7,10 @@
     <title>YYY Coffee | @yield('title')</title>
     <link rel="shortcut icon" type="image/png" href="modernize/assets/images/logos/favicon.png" />
     <link rel="stylesheet" href="modernize/assets/css/styles.min.css" />
+    <link rel="stylesheet" href="cdn.datatables.net/2.1.3/css/dataTables.dataTables.min.css">
 </head>
 
-<body class="bg-primary">
+<body>
     <!--  Body Wrapper -->
     <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
         data-sidebar-position="fixed" data-header-position="fixed">
@@ -65,7 +66,13 @@
                 </nav>
             </header>
             <!--  Header End -->
+
+
+
             <div class="container-fluid">
+                <!-- breadcrumb -->
+                @yield('breadcrumb')
+                <!-- breadcrumb -->
                 @yield('content')
             </div>
         </div>
@@ -75,6 +82,10 @@
     <script src="modernize/assets/js/sidebarmenu.js"></script>
     <script src="modernize/assets/js/app.min.js"></script>
     <script src="modernize/assets/libs/simplebar/dist/simplebar.js"></script>
+    <script src="cdn.datatables.net/2.1.3/js/dataTables.min.js"></script>
+    <script>
+        let table = new DataTable('#myTable');
+    </script>
 </body>
 
 </html>

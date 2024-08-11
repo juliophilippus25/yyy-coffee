@@ -29,6 +29,16 @@
                     <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
                     <span class="hide-menu">MENU</span>
                 </li>
+                @if (auth()->user()->role == 'Admin')
+                    <li class="sidebar-item">
+                        <a class="sidebar-link" href="{{ route('categories.index') }}" aria-expanded="false">
+                            <span>
+                                <i class="ti ti-category"></i>
+                            </span>
+                            <span class="hide-menu">Categories</span>
+                        </a>
+                    </li>
+                @endif
                 @if (auth()->user()->role == 'Admin' or auth()->user()->role == 'Staff')
                     <li class="sidebar-item">
                         <a class="sidebar-link" href="./ui-buttons.html" aria-expanded="false">
@@ -49,14 +59,6 @@
                 @endif
 
                 @if (auth()->user()->role == 'Admin')
-                    <li class="sidebar-item">
-                        <a class="sidebar-link" href="./ui-buttons.html" aria-expanded="false">
-                            <span>
-                                <i class="ti ti-category"></i>
-                            </span>
-                            <span class="hide-menu">Categories</span>
-                        </a>
-                    </li>
                     <li class="sidebar-item">
                         <a class="sidebar-link" href="./ui-buttons.html" aria-expanded="false">
                             <span>
