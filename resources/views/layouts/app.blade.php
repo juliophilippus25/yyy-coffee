@@ -4,14 +4,15 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>YYY Coffee | @yield('title')</title>
     <link rel="shortcut icon" type="image/png" href="modernize/assets/images/logos/favicon.png" />
     <link rel="stylesheet" href="modernize/assets/css/styles.min.css" />
     {{-- <link rel="stylesheet" href="//cdn.datatables.net/2.1.3/css/dataTables.dataTables.min.css"> --}}
-    <link href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css" rel="stylesheet">
+    <link href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css" rel="stylesheet">
 </head>
 
-<body>
+<body class="bg-primary-subtle">
     <!--  Body Wrapper -->
     <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
         data-sidebar-position="fixed" data-header-position="fixed">
@@ -68,8 +69,6 @@
             </header>
             <!--  Header End -->
 
-
-
             <div class="container-fluid">
                 <!-- breadcrumb -->
                 @yield('breadcrumb')
@@ -86,7 +85,25 @@
     <script src="modernize/assets/libs/simplebar/dist/simplebar.js"></script>
     {{-- <script src="//cdn.datatables.net/2.1.3/js/dataTables.min.js"></script> --}}
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        //SweetAlert2 Toast
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            icon: "success",
+            showConfirmButton: false,
+            timer: 2500,
+            timerProgressBar: true,
+        });
+    </script>
     @yield('script')
 </body>
 
