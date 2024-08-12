@@ -7,7 +7,8 @@
     <title>YYY Coffee | @yield('title')</title>
     <link rel="shortcut icon" type="image/png" href="modernize/assets/images/logos/favicon.png" />
     <link rel="stylesheet" href="modernize/assets/css/styles.min.css" />
-    <link rel="stylesheet" href="cdn.datatables.net/2.1.3/css/dataTables.dataTables.min.css">
+    {{-- <link rel="stylesheet" href="//cdn.datatables.net/2.1.3/css/dataTables.dataTables.min.css"> --}}
+    <link href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css" rel="stylesheet">
 </head>
 
 <body>
@@ -77,15 +78,16 @@
             </div>
         </div>
     </div>
+
     <script src="modernize/assets/libs/jquery/dist/jquery.min.js"></script>
     <script src="modernize/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="modernize/assets/js/sidebarmenu.js"></script>
     <script src="modernize/assets/js/app.min.js"></script>
     <script src="modernize/assets/libs/simplebar/dist/simplebar.js"></script>
-    <script src="cdn.datatables.net/2.1.3/js/dataTables.min.js"></script>
-    <script>
-        let table = new DataTable('#myTable');
-    </script>
+    {{-- <script src="//cdn.datatables.net/2.1.3/js/dataTables.min.js"></script> --}}
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+    @yield('script')
 </body>
 
 </html>

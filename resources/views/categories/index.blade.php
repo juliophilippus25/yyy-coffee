@@ -27,22 +27,35 @@
                         <th>Action</th>
                     </tr>
                 </thead>
-                <tbody>
-                    @forelse ($categories as $category)
-                        <td>{{ $loop->iteration }}</td>
-                        <td>{{ $category->name }}</td>
-                        <td>Button Action</td>
-                    @empty
-                        <tr class="">
-                            <td colspan="16">
-                                <strong class="text-dark">
-                                    <center>No data avalaible.</center>
-                                </strong>
-                            </td>
-                        </tr>
-                    @endforelse
-                </tbody>
             </table>
         </div>
     </div>
+
+@section('script')
+    <script>
+        $(document).ready(function() {
+            $('#myTable').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: "{{ route('categories.index') }}",
+                columns: [{
+                        data: 'DT_RowIndex',
+                        name: 'DT_RowIndex',
+                        orderable: false,
+                        searchable: false
+                    },
+                    {
+                        data: 'name',
+                        name: 'name'
+                    },
+                    {
+                        data: 'action',
+                        name: 'action'
+                    },
+                ],
+            });
+        });
+    </script>
+@endsection
+
 @endsection
