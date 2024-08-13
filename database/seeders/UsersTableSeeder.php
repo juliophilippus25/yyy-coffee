@@ -20,7 +20,7 @@ class UsersTableSeeder extends Seeder
               'name'  			=> 'Admin',
               'username'		=> 'yyycoffee',
               'password'		=> bcrypt('password'),
-              'role'            => 'Admin',
+              'roles'            => 'Admin',
               'image'			=> NULL,
               'created_at'      => \Carbon\Carbon::now(),
               'updated_at'      => \Carbon\Carbon::now()
@@ -30,7 +30,7 @@ class UsersTableSeeder extends Seeder
                 'name'  	    => 'Julio Philippus',
                 'username'		=> 'julzybae',
                 'password'		=> bcrypt('password'),
-                'role'          => 'Staff',
+                'roles'          => 'Staff',
                 'image'			=> NULL,
                 'created_at'    => \Carbon\Carbon::now(),
                 'updated_at'    => \Carbon\Carbon::now()

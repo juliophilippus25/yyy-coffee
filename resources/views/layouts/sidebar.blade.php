@@ -29,7 +29,7 @@
                     <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
                     <span class="hide-menu">MENU</span>
                 </li>
-                @if (auth()->user()->role == 'Admin')
+                @if (auth()->user()->roles == 'Admin')
                     <li class="sidebar-item">
                         <a class="sidebar-link" href="{{ route('categories.index') }}" aria-expanded="false">
                             <span>
@@ -39,7 +39,7 @@
                         </a>
                     </li>
                 @endif
-                @if (auth()->user()->role == 'Admin' or auth()->user()->role == 'Staff')
+                @if (auth()->user()->roles == 'Admin' or auth()->user()->roles == 'Staff')
                     <li class="sidebar-item">
                         <a class="sidebar-link" href="./ui-buttons.html" aria-expanded="false">
                             <span>
@@ -58,7 +58,7 @@
                     </li>
                 @endif
 
-                @if (auth()->user()->role == 'Admin')
+                @if (auth()->user()->roles == 'Admin')
                     <li class="sidebar-item">
                         <a class="sidebar-link" href="./ui-buttons.html" aria-expanded="false">
                             <span>

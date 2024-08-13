@@ -8,8 +8,7 @@
     <title>YYY Coffee | @yield('title')</title>
     <link rel="shortcut icon" type="image/png" href="modernize/assets/images/logos/favicon.png" />
     <link rel="stylesheet" href="modernize/assets/css/styles.min.css" />
-    {{-- <link rel="stylesheet" href="//cdn.datatables.net/2.1.3/css/dataTables.dataTables.min.css"> --}}
-    <link href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.1.3/css/dataTables.bootstrap5.min.css">
 </head>
 
 <body class="bg-primary-subtle">
@@ -70,9 +69,6 @@
             <!--  Header End -->
 
             <div class="container-fluid">
-                <!-- breadcrumb -->
-                @yield('breadcrumb')
-                <!-- breadcrumb -->
                 @yield('content')
             </div>
         </div>
@@ -83,20 +79,16 @@
     <script src="modernize/assets/js/sidebarmenu.js"></script>
     <script src="modernize/assets/js/app.min.js"></script>
     <script src="modernize/assets/libs/simplebar/dist/simplebar.js"></script>
-    {{-- <script src="//cdn.datatables.net/2.1.3/js/dataTables.min.js"></script> --}}
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/2.1.3/js/dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/2.1.3/js/dataTables.bootstrap5.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-
         //SweetAlert2 Toast
         const Toast = Swal.mixin({
             toast: true,
+            background: '#13DEB9',
+            color: '#fff',
+            iconColor: '#fff',
             position: 'top-end',
             icon: "success",
             showConfirmButton: false,

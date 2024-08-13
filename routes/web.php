@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -23,9 +24,10 @@ Auth::routes();
 Route::get('/dashboard', [App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
 
 // Categories
-Route::get('/categories', [App\Http\Controllers\CategoryController::class, 'index'])->name('categories.index');
-Route::get('/fetchall', [App\Http\Controllers\CategoryController::class, 'fetchAll'])->name('fetchAll');
-Route::post('/store-category', [App\Http\Controllers\CategoryController::class, 'store'])->name('categories.store');
-Route::get('/edit-category', [App\Http\Controllers\CategoryController::class, 'edit'])->name('categories.edit');
-Route::post('/update-category', [App\Http\Controllers\CategoryController::class, 'update'])->name('categories.update');
-Route::delete('/delete-category', [App\Http\Controllers\CategoryController::class, 'destroy'])->name('categories.delete');
+Route::group(['prefix' => '/categories'], function() {
+    Route::get('', [App\Http\Controllers\CategoryController::class, 'index'])->name('categories.index');
+    Route::post('/store-category', [App\Http\Controllers\CategoryController::class, 'store'])->name('categories.store');
+    Route::get('/edit-category', [App\Http\Controllers\CategoryController::class, 'edit'])->name('categories.edit');
+    Route::post('/update-category', [App\Http\Controllers\CategoryController::class, 'update'])->name('categories.update');
+    Route::delete('/delete-category', [App\Http\Controllers\CategoryController::class, 'destroy'])->name('categories.delete');
+});

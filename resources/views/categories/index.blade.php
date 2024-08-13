@@ -5,24 +5,25 @@
 @section('content')
 
     <div class="col-lg-12">
-        {{-- @section('breadcrumb')
-        <div class="ms-auto">
-            <ol class="breadcrumb ms-end">
-                <li class="breadcrumb-item active" aria-current="page">Categories</li>
-            </ol>
-        </div>
-    @endsection --}}
         <div class="card shadow mt-3">
             <div class="card-header d-flex justify-content-between align-items-center">
                 <h3 class="text-primary">Manage Categories</h3>
                 <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addCategoryModal"><i
                         class="ti ti-plus"></i> Category</button>
             </div>
-            <div class="card-body" id="show_all_categories">
-                <h1 class="text-center text-primary my-5"><i class="ti ti-loader"></i></h1>
+            <div class="card-body">
+                <table class="table table-hover table-striped" id="myTable">
+                    <thead>
+                        <tr>
+                            <th class="col-md-1">No</th>
+                            <th class="col-md-5">Name</th>
+                            <th class="col-md-2">Action</th>
+                        </tr>
+                    </thead>
+                </table>
+
             </div>
         </div>
-
 
         {{-- Add Modal --}}
         <div class="modal fade" id="addCategoryModal" tabindex="-1" aria-labelledby="exampleModalLabel"
@@ -88,8 +89,29 @@
 
     @section('script')
         <script>
-            $(function() {
+            $(document).ready(function() {
+                $('#myTable').DataTable({
+                    processing: true,
+                    serverside: true,
+                    responsive: true,
+                    ajax: "{{ route('categories.index') }}",
+                    columns: [{
+                        data: 'DT_RowIndex',
+                        name: 'DT_RowIndex',
+                        orderable: false,
+                        searchable: false
+                    }, {
+                        data: 'name',
+                        name: 'name',
+                    }, {
+                        data: 'action',
+                        name: 'action',
+                    }]
+                });
+            });
 
+
+            $(function() {
                 // add new category ajax request
                 $("#add_category_form").submit(function(e) {
                     e.preventDefault();
@@ -108,7 +130,7 @@
                                 Toast.fire(
                                     'Category saved successfully.'
                                 )
-                                fetchAllCategories();
+                                $('#myTable').DataTable().ajax.reload();
                             }
                             $("#add_category_btn").text('Add category');
                             $("#add_category_form")[0].reset();
@@ -153,7 +175,7 @@
                                 Toast.fire(
                                     'Category updated successfully.'
                                 )
-                                fetchAllCategories();
+                                $('#myTable').DataTable().ajax.reload();
                             }
                             $("#edit_category_btn").text('Update Category');
                             $("#edit_category_form")[0].reset();
@@ -190,28 +212,13 @@
                                     Toast.fire(
                                         'Category has been deleted.'
                                     )
-                                    fetchAllCategories();
+                                    $('#myTable').DataTable().ajax.reload();
                                 }
                             });
                         }
                     })
                 });
-                fetchAllCategories();
 
-                // fetch all categories ajax request
-
-                function fetchAllCategories() {
-                    $.ajax({
-                        url: '{{ route('fetchAll') }}',
-                        method: 'get',
-                        success: function(response) {
-                            $("#show_all_categories").html(response);
-                            $("table").DataTable({
-                                order: [0, 'desc']
-                            });
-                        }
-                    });
-                }
             });
         </script>
     @endsection

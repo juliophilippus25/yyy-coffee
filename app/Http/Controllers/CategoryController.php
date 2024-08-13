@@ -13,38 +13,21 @@ class CategoryController extends Controller
         $this->middleware('auth');
     }
 
-    public function index()
+    public function index(Request $request)
     {
+        if ($request->ajax()) {
+            $data = Category::orderBy('name', 'asc');
+            return DataTables::of($data)
+                ->addIndexColumn()
+                ->addColumn('action', function ($data) {
+                    return view('categories.action')->with('data', $data);
+                })
+                ->make(true);
+        }
+    
         return view('categories.index');
     }
 
-    public function fetchAll() {
-        $categories = Category::all();
-        $output = '';
-        if ($categories->count() > 0) {
-            $output .= '<table class="table table-bordered table-striped">
-            <thead>
-              <tr>
-                <th>Category Name</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody>';
-            foreach ($categories as $category) {
-                $output .= '<tr>
-                <td>' . $category->name . '</td>
-                <td>
-                  <a href="#" id="' . $category->id . '" class="btn btn-success btn-sm editIcon" title="Edit" data-bs-toggle="modal" data-bs-target="#editCategoryModal"><i class="ti ti-edit"></i></a>
-                  <a href="#" id="' . $category->id . '" class="btn btn-danger btn-sm deleteIcon" title="Delete"><i class="ti ti-eraser"></i></a>
-                </td>
-              </tr>';
-            }
-            $output .= '</tbody></table>';
-            echo $output;
-        } else {
-            echo '<h3 class="text-center text-primary my-3">No data avalaible in the database!</h3>';
-        }
-    }
 
     public function store(Request $request) {
         $category = ['name' => $request->name];
