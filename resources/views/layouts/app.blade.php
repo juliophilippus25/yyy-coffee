@@ -95,6 +95,19 @@
             timer: 2500,
             timerProgressBar: true,
         });
+
+        //SweetAlert2 Toast
+        const ToastF = Swal.mixin({
+            toast: true,
+            background: '#FA896B',
+            color: '#fff',
+            iconColor: '#fff',
+            position: 'top-end',
+            icon: "error",
+            showConfirmButton: false,
+            timer: 2500,
+            timerProgressBar: true,
+        });
     </script>
     @yield('script')
 </body>

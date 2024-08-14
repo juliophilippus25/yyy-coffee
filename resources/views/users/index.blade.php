@@ -6,7 +6,7 @@
     <div class="card shadow mt-3">
         <div class="card-header d-flex justify-content-between align-items-center">
             <h3 class="text-primary">Manage Users</h3>
-            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addCategoryModal"><i class="ti ti-plus"></i>
+            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addUserModal"><i class="ti ti-plus"></i>
                 User</button>
         </div>
         <div class="card-body">
@@ -23,6 +23,54 @@
 
         </div>
     </div>
+
+    {{-- Add Modal --}}
+    <div class="modal fade" id="addUserModal" tabindex="-1" aria-labelledby="exampleModalLabel" data-bs-backdrop="static"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Add New User</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="#" method="POST" id="add_user_form" enctype="multipart/form-data">
+                    @csrf
+                    <div class="modal-body">
+                        <input type="hidden" name="roles" id="roles" value="Staff">
+                        <div class="form-group mb-3">
+                            <label for="name" class="form-label">Name<b style="color:Tomato;">*</b></label>
+                            <input type="text" class="form-control" name="name" id="name" placeholder="Name"
+                                required>
+                            @error('name')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="username" class="form-label">Username<b style="color:Tomato;">*</b></label>
+                            <input type="text" class="form-control" name="username" id="username" placeholder="Username"
+                                required>
+                            @error('username')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="password" class="form-label">Password<b style="color:Tomato;">*</b></label>
+                            <input type="password" class="form-control" name="password" id="password"
+                                placeholder="Password" required>
+                            @error('password')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" id="add_user_btn" class="btn btn-primary">Add User</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    {{-- End Add Modal --}}
 
 @section('script')
     <script>
@@ -47,6 +95,91 @@
                     data: 'action',
                     name: 'action'
                 }]
+            });
+        });
+
+        $(function() {
+            // add new user ajax request
+            $("#add_user_form").submit(function(e) {
+                e.preventDefault();
+                const fd = new FormData(this);
+                $("#add_user_btn").text('Adding...');
+                $.ajax({
+                    url: '{{ route('users.store') }}',
+                    method: 'post',
+                    data: fd,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    dataType: 'json',
+                    success: function(response) {
+                        if (response.status === 200) {
+                            // Tampilkan notifikasi sukses
+                            Toast.fire({
+                                icon: 'success',
+                                title: 'User saved successfully.'
+                            });
+
+                            // Reload data di tabel
+                            $('#myTable').DataTable().ajax.reload();
+
+                            // Reset form dan tutup modal
+                            $("#add_user_form")[0].reset();
+                            $("#addUserModal").modal('hide');
+                        } else {
+                            // Tangani jika ada status lain yang tidak diharapkan
+                            Toast.fire({
+                                icon: 'error',
+                                title: 'Failed to save user.'
+                            });
+                        }
+                        $("#add_user_btn").text('Add User');
+                    },
+                    error: function(xhr, status, error) {
+                        // Tampilkan pesan error jika request gagal
+                        console.error(xhr.responseText);
+                        ToastF.fire({
+                            icon: 'error',
+                            title: 'Something went wrong!'
+                        });
+                        $("#add_user_btn").text('Add User');
+                    }
+                });
+            });
+
+            // delete category ajax request
+            $(document).on('click', '.deleteIcon', function(e) {
+                e.preventDefault();
+                let id = $(this).attr('id');
+                let csrf = '{{ csrf_token() }}';
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    cancelButtonText: 'No',
+                    confirmButtonColor: '#5D87FF',
+                    cancelButtonColor: '#FA896B',
+                    confirmButtonText: 'Yes'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            url: '{{ route('users.delete') }}',
+                            method: 'delete',
+                            data: {
+                                id: id,
+                                _token: csrf
+                            },
+                            success: function(response) {
+                                console.log(response);
+                                Toast.fire(
+                                    'User has been deleted.'
+                                )
+                                $('#myTable').DataTable().ajax.reload();
+                            }
+                        });
+                    }
+                })
             });
         });
     </script>
