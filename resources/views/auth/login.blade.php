@@ -25,6 +25,11 @@
                                         alt="">
                                 </a>
                                 <p class="text-center">YYY Cofee.</p>
+                                @if (session('failed'))
+                                    <p class="bg-danger fw-bold text-white p-3 rounded-lg text-center">
+                                        {{ session('failed') }}
+                                    </p>
+                                @endif
                                 <form method="POST" action="{{ route('login') }}">
                                     @csrf
                                     <div class="mb-3">

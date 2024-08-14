@@ -15,7 +15,7 @@
                     <tr>
                         <th class="col-md-1">No</th>
                         <th class="col-md-6">Name</th>
-                        <th class="col-md-3">Role</th>
+                        <th class="col-md-3">Status</th>
                         <th class="col-md-2">Action</th>
                     </tr>
                 </thead>
@@ -39,16 +39,15 @@
                         <input type="hidden" name="roles" id="roles" value="Staff">
                         <div class="form-group mb-3">
                             <label for="name" class="form-label">Name<b style="color:Tomato;">*</b></label>
-                            <input type="text" class="form-control" name="name" id="name" placeholder="Name"
-                                required>
+                            <input type="text" class="form-control" name="name" id="name" placeholder="Name">
                             @error('name')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
                         <div class="form-group mb-3">
                             <label for="username" class="form-label">Username<b style="color:Tomato;">*</b></label>
-                            <input type="text" class="form-control" name="username" id="username" placeholder="Username"
-                                required>
+                            <input type="text" class="form-control" name="username" id="username"
+                                placeholder="Username">
                             @error('username')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
@@ -56,7 +55,7 @@
                         <div class="form-group mb-3">
                             <label for="password" class="form-label">Password<b style="color:Tomato;">*</b></label>
                             <input type="password" class="form-control" name="password" id="password"
-                                placeholder="Password" required>
+                                placeholder="Password">
                             @error('password')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
@@ -89,8 +88,8 @@
                     data: 'name',
                     name: 'name'
                 }, {
-                    data: 'roles',
-                    name: 'roles'
+                    data: 'status',
+                    name: 'status'
                 }, {
                     data: 'action',
                     name: 'action'

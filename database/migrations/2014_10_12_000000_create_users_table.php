@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('username')->unique();
             $table->string('password');
             $table->string('roles')->default('Staff');
+            $table->string('status')->default('active');
             $table->string('image')->nullable();
             $table->timestamps();
         });
