@@ -31,3 +31,7 @@ Route::group(['prefix' => '/categories'], function() {
     Route::post('/update-category', [App\Http\Controllers\CategoryController::class, 'update'])->name('categories.update');
     Route::delete('/delete-category', [App\Http\Controllers\CategoryController::class, 'destroy'])->name('categories.delete');
 });
+
+Route::group(['prefix' => '/users'], function() {
+    Route::get('', [App\Http\Controllers\UsersController::class, 'index'])->name('users.index');
+});

@@ -15,7 +15,7 @@
                 <thead>
                     <tr>
                         <th class="col-md-1">No</th>
-                        <th class="col-md-5">Name</th>
+                        <th class="col-md-9">Name</th>
                         <th class="col-md-2">Action</th>
                     </tr>
                 </thead>
@@ -101,10 +101,10 @@
                     searchable: false
                 }, {
                     data: 'name',
-                    name: 'name',
+                    name: 'name'
                 }, {
                     data: 'action',
-                    name: 'action',
+                    name: 'action'
                 }]
             });
         });
