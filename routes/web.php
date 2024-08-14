@@ -36,4 +36,5 @@ Route::group(['prefix' => '/users'], function() {
     Route::get('', [App\Http\Controllers\UsersController::class, 'index'])->name('users.index');
     Route::post('/store-user', [App\Http\Controllers\UsersController::class, 'store'])->name('users.store');
     Route::delete('/delete-user', [App\Http\Controllers\UsersController::class, 'destroy'])->name('users.delete');
+    Route::post('/status-user', [App\Http\Controllers\UsersController::class, 'status'])->name('users.status');
 });

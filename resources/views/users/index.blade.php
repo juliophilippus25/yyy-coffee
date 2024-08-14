@@ -80,20 +80,38 @@
                 responsive: true,
                 ajax: "{{ route('users.index') }}",
                 columns: [{
-                    data: 'DT_RowIndex',
-                    name: 'DT_RowIndex',
-                    orderable: false,
-                    searchable: false
-                }, {
-                    data: 'name',
-                    name: 'name'
-                }, {
-                    data: 'status',
-                    name: 'status'
-                }, {
-                    data: 'action',
-                    name: 'action'
-                }]
+                        data: 'DT_RowIndex',
+                        name: 'DT_RowIndex',
+                        orderable: false,
+                        searchable: false
+                    },
+                    {
+                        data: 'name',
+                        name: 'name'
+                    },
+                    {
+                        data: 'status',
+                        name: 'status',
+                        render: function(data, type, row) {
+                            // Menentukan kelas tombol berdasarkan status
+                            var buttonClass = data === 'active' ? 'btn-success' : 'btn-danger';
+                            var buttonText = data === 'active' ? 'Active' : 'Inactive';
+
+                            // Menghasilkan tombol dengan kelas yang sesuai
+                            var toggleStatusButton =
+                                '<button class="btn btn-sm ' + buttonClass +
+                                ' toggle-status" data-id="' +
+                                row.id + '" data-status="' + data + '">' +
+                                buttonText +
+                                '</button>';
+                            return toggleStatusButton;
+                        }
+                    },
+                    {
+                        data: 'action',
+                        name: 'action'
+                    }
+                ],
             });
         });
 
@@ -179,6 +197,34 @@
                         });
                     }
                 })
+            });
+
+            $(document).on('click', '.toggle-status', function() {
+                var userId = $(this).data('id');
+                var currentStatus = $(this).data('status');
+                var newStatus = currentStatus === 'active' ? 'inactive' : 'active';
+
+                $.ajax({
+                    url: '{{ route('users.status') }}', // Pastikan route ini ada di backend
+                    method: 'POST',
+                    data: {
+                        _token: '{{ csrf_token() }}',
+                        id: userId,
+                        status: newStatus
+                    },
+                    success: function(response) {
+                        if (response.status == 200) {
+                            $('#myTable').DataTable().ajax.reload(); // Reload tabel DataTables
+                            Toast.fire({
+                                icon: 'success',
+                                title: 'User status updated successfully.'
+                            });
+                        }
+                    },
+                    error: function(xhr) {
+                        console.log('An error occurred:', xhr.responseText);
+                    }
+                });
             });
         });
     </script>

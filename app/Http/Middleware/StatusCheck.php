@@ -16,9 +16,9 @@ class StatusCheck
      */
     public function handle(Request $request, Closure $next)
     {
-        if(auth()->user()->status == 'deactivated'){
+        if(auth()->user()->status == 'inactive'){
             auth()->logout();
-            return redirect()->route('login')->with('failed', 'Account was deactivated');
+            return redirect()->route('login')->with('failed', 'Account was inactive');
         }
         return $next($request);
     }
