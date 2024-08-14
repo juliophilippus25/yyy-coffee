@@ -28,6 +28,12 @@ class LoginController extends Controller
      */
     protected $redirectTo = '/dashboard';
 
+    public function authenticated($user)
+    {
+        Alert::success('Data berhasil disimpan!', '');
+        return redirect()->intended(route('dashboard'));
+    }
+
 
     /**
      * Create a new controller instance.
