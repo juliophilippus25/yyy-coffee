@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
+use Illuminate\Support\Facades\Validator;
 
 class CategoryController extends Controller
 {
@@ -30,8 +31,17 @@ class CategoryController extends Controller
 
 
     public function store(Request $request) {
-        $category = ['name' => $request->name];
-        Category::create($category);
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:255'
+        ]);
+    
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 422);
+        }
+        Category::create([
+            'name' => $request->name
+        ]);
+
         return response()->json([
             'status' => 200,
         ]);
@@ -46,9 +56,18 @@ class CategoryController extends Controller
     public function update(Request $request) {
         $category = Category::find($request->category_id);
  
-        $categoryData = ['name' => $request->name];
- 
-        $category->update($categoryData);
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:255'
+        ]);
+    
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 422);
+        }
+
+        $category->name = $request->input('name');
+
+        $category->update();
+
         return response()->json([
             'status' => 200,
         ]);

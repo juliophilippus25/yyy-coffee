@@ -38,17 +38,13 @@
                     <div class="modal-body">
                         <div class="form-group mb-3">
                             <label for="name" class="form-label">Name<b style="color:Tomato;">*</b></label>
-                            <input type="text"
-                                class="form-control @error('name')
-                                is-invalid
-                            @enderror"
-                                name="name" id="name" placeholder="Name">
+                            <input type="text" class="form-control" name="name" id="name" placeholder="Name">
                             <span class="text-danger"></span>
                         </div>
                         <div class="form-group mb-3">
                             <label for="username" class="form-label">Username<b style="color:Tomato;">*</b></label>
-                            <input type="text" class="form-control @error('username') is-invalid @enderror"
-                                name="username" id="username" placeholder="Username">
+                            <input type="text" class="form-control" name="username" id="username"
+                                placeholder="Username">
                             <span class="text-danger"></span>
                         </div>
                         <div class="form-group mb-3">

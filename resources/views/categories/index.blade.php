@@ -40,7 +40,8 @@
                             <div class="mb-3">
                                 <label for="name" class="form-label">Category Name</label>
                                 <input type="text" class="form-control" name="name" id="name"
-                                    placeholder="Category Name" required>
+                                    placeholder="Category Name">
+                                <span class="text-danger"></span>
                             </div>
                         </div>
                     </div>
@@ -71,7 +72,8 @@
                             <div class="mb-3">
                                 <label for="name" class="form-label">Category Name</label>
                                 <input type="text" class="form-control" name="name" id="show-name"
-                                    placeholder="Category Name" required>
+                                    placeholder="Category Name">
+                                <span class="text-danger"></span>
                             </div>
                         </div>
                     </div>
@@ -134,6 +136,22 @@
                         $("#add_category_btn").text('Add category');
                         $("#add_category_form")[0].reset();
                         $("#addCategoryModal").modal('hide');
+                    },
+                    error: function(xhr, status, error) {
+                        var errors = xhr.responseJSON.errors;
+
+                        // Reset error messages
+                        $('span.text-danger').text('');
+
+                        // Display error messages
+                        $.each(errors, function(key, value) {
+                            $('#' + key).next('span.text-danger').text(value[0]);
+                        });
+                        ToastF.fire({
+                            icon: 'error',
+                            title: 'Something went wrong!'
+                        });
+                        $("#add_category_btn").text('Add Category');
                     }
                 });
             });
@@ -179,6 +197,20 @@
                         $("#edit_category_btn").text('Update Category');
                         $("#edit_category_form")[0].reset();
                         $("#editCategoryModal").modal('hide');
+                    },
+                    error: function(xhr, status, error) {
+                        if (xhr.status === 422) {
+                            var errors = xhr.responseJSON.errors;
+                            // Mengosongkan pesan error sebelumnya
+                            $('span.text-danger').text('');
+
+                            // Menampilkan pesan error pada masing-masing input
+                            $.each(errors, function(key, value) {
+                                $('#edit_category_form input[name="' + key + '"]').next(
+                                    'span.text-danger').text(value[0]);
+                            });
+                        }
+                        $("#edit_category_btn").text('Update Category');
                     }
                 });
             });
