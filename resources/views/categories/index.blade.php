@@ -3,90 +3,92 @@
 @section('title', 'Categories')
 
 @section('content')
+    <section>
+        <div class="card shadow mt-3">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h3 class="text-primary">Manage Categories</h3>
+                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addCategoryModal"><i
+                        class="ti ti-plus"></i>
+                    Category</button>
+            </div>
+            <div class="card-body">
+                <table class="table table-hover table-striped" id="myTable">
+                    <thead>
+                        <tr>
+                            <th class="col-md-1">No</th>
+                            <th class="col-md-9">Name</th>
+                            <th class="col-md-2">Action</th>
+                        </tr>
+                    </thead>
+                </table>
 
-    <div class="card shadow mt-3">
-        <div class="card-header d-flex justify-content-between align-items-center">
-            <h3 class="text-primary">Manage Categories</h3>
-            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addCategoryModal"><i class="ti ti-plus"></i>
-                Category</button>
-        </div>
-        <div class="card-body">
-            <table class="table table-hover table-striped" id="myTable">
-                <thead>
-                    <tr>
-                        <th class="col-md-1">No</th>
-                        <th class="col-md-9">Name</th>
-                        <th class="col-md-2">Action</th>
-                    </tr>
-                </thead>
-            </table>
-
-        </div>
-    </div>
-
-    {{-- Add Modal --}}
-    <div class="modal fade" id="addCategoryModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-        data-bs-backdrop="static" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Add New Category</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <form action="#" method="POST" id="add_category_form" enctype="multipart/form-data">
-                    @csrf
-                    <div class="modal-body p-4">
-                        <div class="row">
-                            <div class="mb-3">
-                                <label for="name" class="form-label">Category Name</label>
-                                <input type="text" class="form-control" name="name" id="name"
-                                    placeholder="Category Name">
-                                <span class="text-danger"></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" id="add_category_btn" class="btn btn-primary">Add Category</button>
-                    </div>
-                </form>
             </div>
         </div>
-    </div>
-    {{-- End Add Modal --}}
 
-    {{-- Edit Modal --}}
-    <div class="modal fade" id="editCategoryModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-        data-bs-backdrop="static" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Edit Category</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <form action="#" method="POST" id="edit_category_form" enctype="multipart/form-data">
-                    @csrf
-                    <input type="hidden" name="category_id" id="category_id">
-                    <div class="modal-body p-4 bg">
-                        <div class="row">
-                            <div class="mb-3">
-                                <label for="name" class="form-label">Category Name</label>
-                                <input type="text" class="form-control" name="name" id="show-name"
-                                    placeholder="Category Name">
-                                <span class="text-danger"></span>
+        {{-- Add Modal --}}
+        <div class="modal fade" id="addCategoryModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+            data-bs-backdrop="static" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Add New Category</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form action="#" method="POST" id="add_category_form" enctype="multipart/form-data">
+                        @csrf
+                        <div class="modal-body p-4">
+                            <div class="row">
+                                <div class="mb-3">
+                                    <label for="name" class="form-label">Category Name</label>
+                                    <input type="text" class="form-control" name="name" id="name"
+                                        placeholder="Category Name">
+                                    <span class="text-danger"></span>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" id="edit_category_btn" class="btn btn-primary">Update
-                            Category</button>
-                    </div>
-                </form>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" id="add_category_btn" class="btn btn-primary">Add Category</button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
-    </div>
-    {{-- End Edit Modal --}}
+        {{-- End Add Modal --}}
+
+        {{-- Edit Modal --}}
+        <div class="modal fade" id="editCategoryModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+            data-bs-backdrop="static" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Edit Category</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form action="#" method="POST" id="edit_category_form" enctype="multipart/form-data">
+                        @csrf
+                        <input type="hidden" name="category_id" id="category_id">
+                        <div class="modal-body p-4 bg">
+                            <div class="row">
+                                <div class="mb-3">
+                                    <label for="name" class="form-label">Category Name</label>
+                                    <input type="text" class="form-control" name="name" id="show-name"
+                                        placeholder="Category Name">
+                                    <span class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" id="edit_category_btn" class="btn btn-primary">Update
+                                Category</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        {{-- End Edit Modal --}}
+    </section>
 
 @section('script')
     <script>

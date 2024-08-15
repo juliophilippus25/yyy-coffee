@@ -22,6 +22,7 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/dashboard', [App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard')->middleware('statusCheck');
+Route::get('/profile-user', [App\Http\Controllers\UsersController::class, 'profile'])->name('users.profile');
 
 // Categories
 Route::group(['prefix' => '/categories'], function() {

@@ -72,4 +72,10 @@ class UsersController extends Controller
 
         return response()->json(['status' => 400, 'message' => 'User not found.']);
     }
+
+    public function profile()
+    {
+        $user = Auth::user();
+        return view('users.profile', compact('user'));
+    }
 }

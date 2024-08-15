@@ -3,66 +3,68 @@
 @section('title', 'Users')
 
 @section('content')
-    <div class="card shadow mt-3">
-        <div class="card-header d-flex justify-content-between align-items-center">
-            <h3 class="text-primary">Manage Users</h3>
-            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addUserModal"><i class="ti ti-plus"></i>
-                User</button>
-        </div>
-        <div class="card-body">
-            <table class="table table-hover table-striped" id="myTable">
-                <thead>
-                    <tr>
-                        <th class="col-md-1">No</th>
-                        <th class="col-md-6">Name</th>
-                        <th class="col-md-3">Status</th>
-                        <th class="col-md-2">Action</th>
-                    </tr>
-                </thead>
-            </table>
+    <section>
+        <div class="card shadow mt-3">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h3 class="text-primary">Manage Users</h3>
+                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addUserModal"><i class="ti ti-plus"></i>
+                    User</button>
+            </div>
+            <div class="card-body">
+                <table class="table table-hover table-striped" id="myTable">
+                    <thead>
+                        <tr>
+                            <th class="col-md-1">No</th>
+                            <th class="col-md-6">Name</th>
+                            <th class="col-md-3">Status</th>
+                            <th class="col-md-2">Action</th>
+                        </tr>
+                    </thead>
+                </table>
 
-        </div>
-    </div>
-
-    {{-- Add Modal --}}
-    <div class="modal fade" id="addUserModal" tabindex="-1" aria-labelledby="exampleModalLabel" data-bs-backdrop="static"
-        aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Add New User</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <form action="#" method="POST" id="add_user_form" enctype="multipart/form-data">
-                    @csrf
-                    <div class="modal-body">
-                        <div class="form-group mb-3">
-                            <label for="name" class="form-label">Name<b style="color:Tomato;">*</b></label>
-                            <input type="text" class="form-control" name="name" id="name" placeholder="Name">
-                            <span class="text-danger"></span>
-                        </div>
-                        <div class="form-group mb-3">
-                            <label for="username" class="form-label">Username<b style="color:Tomato;">*</b></label>
-                            <input type="text" class="form-control" name="username" id="username"
-                                placeholder="Username">
-                            <span class="text-danger"></span>
-                        </div>
-                        <div class="form-group mb-3">
-                            <label for="password" class="form-label">Password<b style="color:Tomato;">*</b></label>
-                            <input type="password" class="form-control" name="password" id="password"
-                                placeholder="Password">
-                            <span class="text-danger"></span>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" id="add_user_btn" class="btn btn-primary">Add User</button>
-                    </div>
-                </form>
             </div>
         </div>
-    </div>
-    {{-- End Add Modal --}}
+
+        {{-- Add Modal --}}
+        <div class="modal fade" id="addUserModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+            data-bs-backdrop="static" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Add New User</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form action="#" method="POST" id="add_user_form" enctype="multipart/form-data">
+                        @csrf
+                        <div class="modal-body">
+                            <div class="form-group mb-3">
+                                <label for="name" class="form-label">Name<b style="color:Tomato;">*</b></label>
+                                <input type="text" class="form-control" name="name" id="name" placeholder="Name">
+                                <span class="text-danger"></span>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="username" class="form-label">Username<b style="color:Tomato;">*</b></label>
+                                <input type="text" class="form-control" name="username" id="username"
+                                    placeholder="Username">
+                                <span class="text-danger"></span>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="password" class="form-label">Password<b style="color:Tomato;">*</b></label>
+                                <input type="password" class="form-control" name="password" id="password"
+                                    placeholder="Password">
+                                <span class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" id="add_user_btn" class="btn btn-primary">Add User</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        {{-- End Add Modal --}}
+    </section>
 
 @section('script')
     <script>
@@ -92,7 +94,7 @@
 
                             // Menghasilkan tombol dengan kelas yang sesuai
                             var toggleStatusButton =
-                                '<button class="btn btn-sm ' + buttonClass +
+                                '<button class="btn btn-sm rounded-3 ' + buttonClass +
                                 ' toggle-status" data-id="' +
                                 row.id + '" data-status="' + data + '">' +
                                 buttonText +
