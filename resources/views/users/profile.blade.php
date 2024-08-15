@@ -110,27 +110,27 @@
                                         <div class="col-md-8 col-lg-9">
                                             @if (Auth::user()->image)
                                                 <img id="preview" style="border-radius: 10px;" alt="Profile"
-                                                    width="150" height="150"
+                                                    width="150" height="150" class="mb-2"
                                                     src="{{ asset('storage/images/users/' . $user->image) }}" />
                                             @elseif(Auth::user()->image == null)
                                                 <img id="preview" style="border-radius: 10px;" alt="Profile"
-                                                    width="150" height="150"
+                                                    width="150" height="150" class="mb-2"
                                                     src="modernize/assets/images/profile/user-1.jpg" />
                                             @endif
                                             <div>
-                                                <input class="form-control mt-3" type="file" id="imgInp"
-                                                    name="image" accept="image/*" @error('image') is-invalid @enderror>
                                                 <small style="color:Tomato;">
                                                     <em>
-                                                        Upload images in jpg/jpeg/png format and maximum image size
+                                                        Upload image in jpg/jpeg/png format and maximum image size
                                                         2mb
                                                     </em>
                                                 </small>
+                                                <input class="form-control" type="file" id="imgInp" name="image"
+                                                    accept="image/*" @error('image') is-invalid @enderror>
+                                                @error('image')
+                                                    <span class="text-danger">{{ $message }}</span>
+                                                @enderror
                                             </div>
                                         </div>
-                                        @error('image')
-                                            <span class="text-danger">{{ $message }}</span>
-                                        @enderror
                                     </div>
 
                                     <div class="row mb-3">
@@ -159,28 +159,41 @@
                                     <div class="row mb-3">
                                         <label for="phone" class="col-md-4 col-lg-3 col-form-label">Phone</label>
                                         <div class="col-md-8 col-lg-9">
-                                            <input name="phone" type="text" class="form-control" id="phone"
+                                            <input name="phone" type="text"
+                                                class="form-control @error('phone') is-invalid @enderror" id="phone"
                                                 onkeypress="return isNumberKey(event)"
                                                 value="{{ old('phone', $user->phone) }}">
                                         </div>
+                                        @error('phone')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
                                     </div>
 
                                     <div class="row mb-3">
                                         <label for="password" class="col-md-4 col-lg-3 col-form-label">New
                                             Password</label>
                                         <div class="col-md-8 col-lg-9">
-                                            <input name="password" type="password" class="form-control" id="password">
+                                            <input name="password" type="password"
+                                                class="form-control @error('password') is-invalid @enderror"
+                                                id="password">
                                         </div>
+                                        @error('password')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
                                     </div>
 
                                     <div class="row mb-3">
                                         <label for="password_confirmation"
-                                            class="col-md-4 col-lg-3 col-form-label">Confirm
+                                            class="col-md-4 col-lg-3 col-form-label">Confirmation
                                             Password</label>
                                         <div class="col-md-8 col-lg-9">
-                                            <input name="password_confirmation" type="password" class="form-control"
+                                            <input name="password_confirmation" type="password"
+                                                class="form-control @error('password_confirmation') is-invalid @enderror"
                                                 id="password_confirmation">
                                         </div>
+                                        @error('password_confirmation')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
                                     </div>
 
                                     <div class="row mb-3">

@@ -37,17 +37,19 @@ class UsersController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
             'username' => 'required|string|max:255|unique:users,username',
-            'password' => 'required|string|min:8'
+            'password' => 'required|string|min:8',
+            'phone' => 'required|min:10|numeric',
+            'password_confirmation' => 'required|min:8|same:password',
         ]);
     
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()], 422);
         }
 
-        // Buat user baru
         User::create([
             'name' => $request->name,
             'username' => $request->username,
+            'phone' => $request->phone,
             'password' => bcrypt($request->password)
         ]);
 
@@ -90,6 +92,7 @@ class UsersController extends Controller
             'name' => 'required|min:3|unique:users,name,'.$user->id,
             'username' => 'required|min:5|unique:users,username,'.$user->id,
             'password' => 'nullable|min:8|confirmed',
+            'phone' => 'required|min:10|numeric',
             'password_confirmation' => 'nullable|min:8|same:password',
             'image' => 'nullable|mimes:jpg,jpeg,png|max:2048',
         ]);

@@ -15,7 +15,8 @@
                     <thead>
                         <tr>
                             <th class="col-md-1">No</th>
-                            <th class="col-md-6">Name</th>
+                            <th class="col-md-3">Name</th>
+                            <th>Phone</th>
                             <th class="col-md-3">Status</th>
                             <th class="col-md-2">Action</th>
                         </tr>
@@ -49,9 +50,22 @@
                                 <span class="text-danger"></span>
                             </div>
                             <div class="form-group mb-3">
+                                <label for="phone" class="form-label">Phone<b style="color:Tomato;">*</b></label>
+                                <input type="text" class="form-control" name="phone" id="phone" placeholder="Phone"
+                                    onkeypress="return isNumberKey(event)">
+                                <span class="text-danger"></span>
+                            </div>
+                            <div class="form-group mb-3">
                                 <label for="password" class="form-label">Password<b style="color:Tomato;">*</b></label>
                                 <input type="password" class="form-control" name="password" id="password"
                                     placeholder="Password">
+                                <span class="text-danger"></span>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="password_confirmation" class="form-label">Confirmation Password<b
+                                        style="color:Tomato;">*</b></label>
+                                <input type="password" class="form-control" name="password_confirmation"
+                                    id="password_confirmation" placeholder="Confirmation Password">
                                 <span class="text-danger"></span>
                             </div>
                         </div>
@@ -68,11 +82,31 @@
 
 @section('script')
     <script>
+        function isNumberKey(evt) {
+            var charCode = (evt.which) ? evt.which : event.keyCode
+            if (charCode > 31 && (charCode < 48 || charCode > 57))
+                return false;
+
+            return true;
+        }
+
+        function togglePassword() {
+            var x = document.getElementById("password");
+            var y = document.getElementById("password_confirmation");
+            if (x.type === "password" && y.type === "password") {
+                x.type = "text";
+                y.type = "text";
+            } else {
+                x.type = "password";
+                y.type = "password";
+            }
+        }
+
         $(document).ready(function() {
             $('#myTable').DataTable({
                 processing: true,
                 serverside: true,
-                responsive: true,
+                // responsive: true,
                 ajax: "{{ route('users.index') }}",
                 columns: [{
                         data: 'DT_RowIndex',
@@ -83,6 +117,10 @@
                     {
                         data: 'name',
                         name: 'name'
+                    },
+                    {
+                        data: 'phone',
+                        name: 'phone'
                     },
                     {
                         data: 'status',
@@ -126,28 +164,22 @@
                     dataType: 'json',
                     success: function(response) {
                         if (response.status === 200) {
-                            // Tampilkan notifikasi sukses
                             Toast.fire({
                                 icon: 'success',
                                 title: 'User added successfully.'
                             });
 
-                            // Reload data di tabel
                             $('#myTable').DataTable().ajax.reload();
 
-                            // Reset form dan tutup modal
                             $("#add_user_form")[0].reset();
                             $("#addUserModal").modal('hide');
                         }
+                        $('span.text-danger').text('');
                         $("#add_user_btn").text('Add User');
                     },
                     error: function(xhr, status, error) {
                         var errors = xhr.responseJSON.errors;
-
-                        // Reset error messages
                         $('span.text-danger').text('');
-
-                        // Display error messages
                         $.each(errors, function(key, value) {
                             $('#' + key).next('span.text-danger').text(value[0]);
                         });
@@ -201,7 +233,7 @@
                 var newStatus = currentStatus === 'active' ? 'inactive' : 'active';
 
                 $.ajax({
-                    url: '{{ route('users.status') }}', // Pastikan route ini ada di backend
+                    url: '{{ route('users.status') }}',
                     method: 'POST',
                     data: {
                         _token: '{{ csrf_token() }}',
@@ -210,7 +242,7 @@
                     },
                     success: function(response) {
                         if (response.status == 200) {
-                            $('#myTable').DataTable().ajax.reload(); // Reload tabel DataTables
+                            $('#myTable').DataTable().ajax.reload();
                             Toast.fire({
                                 icon: 'success',
                                 title: 'User status updated successfully.'
