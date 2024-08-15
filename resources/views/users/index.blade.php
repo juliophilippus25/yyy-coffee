@@ -39,30 +39,30 @@
                         @csrf
                         <div class="modal-body">
                             <div class="form-group mb-3">
-                                <label for="name" class="form-label">Name<b style="color:Tomato;">*</b></label>
+                                <label for="name" class="form-label">Name <b style="color:Tomato;">*</b></label>
                                 <input type="text" class="form-control" name="name" id="name" placeholder="Name">
                                 <span class="text-danger"></span>
                             </div>
                             <div class="form-group mb-3">
-                                <label for="username" class="form-label">Username<b style="color:Tomato;">*</b></label>
+                                <label for="username" class="form-label">Username <b style="color:Tomato;">*</b></label>
                                 <input type="text" class="form-control" name="username" id="username"
                                     placeholder="Username">
                                 <span class="text-danger"></span>
                             </div>
                             <div class="form-group mb-3">
-                                <label for="phone" class="form-label">Phone<b style="color:Tomato;">*</b></label>
+                                <label for="phone" class="form-label">Phone <b style="color:Tomato;">*</b></label>
                                 <input type="text" class="form-control" name="phone" id="phone" placeholder="Phone"
                                     onkeypress="return isNumberKey(event)">
                                 <span class="text-danger"></span>
                             </div>
                             <div class="form-group mb-3">
-                                <label for="password" class="form-label">Password<b style="color:Tomato;">*</b></label>
+                                <label for="password" class="form-label">Password <b style="color:Tomato;">*</b></label>
                                 <input type="password" class="form-control" name="password" id="password"
                                     placeholder="Password">
                                 <span class="text-danger"></span>
                             </div>
                             <div class="form-group mb-3">
-                                <label for="password_confirmation" class="form-label">Confirmation Password<b
+                                <label for="password_confirmation" class="form-label">Confirmation Password <b
                                         style="color:Tomato;">*</b></label>
                                 <input type="password" class="form-control" name="password_confirmation"
                                     id="password_confirmation" placeholder="Confirmation Password">

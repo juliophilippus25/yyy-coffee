@@ -39,7 +39,8 @@
                         <div class="modal-body p-4">
                             <div class="row">
                                 <div class="mb-3">
-                                    <label for="name" class="form-label">Category Name</label>
+                                    <label for="name" class="form-label">Category Name <b
+                                            style="color:Tomato;">*</b></label>
                                     <input type="text" class="form-control" name="name" id="name"
                                         placeholder="Category Name">
                                     <span class="text-danger"></span>
@@ -71,7 +72,8 @@
                         <div class="modal-body p-4 bg">
                             <div class="row">
                                 <div class="mb-3">
-                                    <label for="name" class="form-label">Category Name</label>
+                                    <label for="name" class="form-label">Category Name <b
+                                            style="color:Tomato;">*</b></label>
                                     <input type="text" class="form-control" name="name" id="show-name"
                                         placeholder="Category Name">
                                     <span class="text-danger"></span>
@@ -139,14 +141,13 @@
                         $("#add_category_btn").text('Add category');
                         $("#add_category_form")[0].reset();
                         $("#addCategoryModal").modal('hide');
+                        $('span.text-danger').text('');
                     },
                     error: function(xhr, status, error) {
                         var errors = xhr.responseJSON.errors;
 
-                        // Reset error messages
                         $('span.text-danger').text('');
 
-                        // Display error messages
                         $.each(errors, function(key, value) {
                             $('#' + key).next('span.text-danger').text(value[0]);
                         });
@@ -201,14 +202,13 @@
                         $("#edit_category_btn").text('Update Category');
                         $("#edit_category_form")[0].reset();
                         $("#editCategoryModal").modal('hide');
+                        $('span.text-danger').text('');
                     },
                     error: function(xhr, status, error) {
                         if (xhr.status === 422) {
                             var errors = xhr.responseJSON.errors;
-                            // Mengosongkan pesan error sebelumnya
                             $('span.text-danger').text('');
 
-                            // Menampilkan pesan error pada masing-masing input
                             $.each(errors, function(key, value) {
                                 $('#edit_category_form input[name="' + key + '"]').next(
                                     'span.text-danger').text(value[0]);

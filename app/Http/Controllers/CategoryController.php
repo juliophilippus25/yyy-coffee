@@ -32,7 +32,7 @@ class CategoryController extends Controller
 
     public function store(Request $request) {
         $validator = Validator::make($request->all(), [
-            'name' => 'required|string|max:255'
+            'name' => 'required|string|max:255|unique:categories,name'
         ]);
     
         if ($validator->fails()) {
@@ -55,9 +55,9 @@ class CategoryController extends Controller
 
     public function update(Request $request) {
         $category = Category::find($request->category_id);
- 
+        $id = $request->route('id');
         $validator = Validator::make($request->all(), [
-            'name' => 'required|string|max:255'
+            'name' => 'required|string|max:255|unique:categories,name' . $id
         ]);
     
         if ($validator->fails()) {
