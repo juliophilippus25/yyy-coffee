@@ -39,8 +39,13 @@
                             <li class="nav-item dropdown">
                                 <a class="nav-link nav-icon-hover" href="javascript:void(0)" id="drop2"
                                     data-bs-toggle="dropdown" aria-expanded="false">
-                                    <img src="modernize/assets/images/profile/user-1.jpg" alt="" width="35"
-                                        height="35" class="rounded-circle">
+                                    @if (Auth::user()->image)
+                                        <img alt="Profile" width="35" height="35" class="rounded-circle"
+                                            src="{{ asset('storage/images/users/' . Auth::user()->image) }}" />
+                                    @elseif(Auth::user()->image == null)
+                                        <img alt="Profile" width="35" height="35" class="rounded-circle"
+                                            src="modernize/assets/images/profile/user-1.jpg" />
+                                    @endif
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-end dropdown-menu-animate-up"
                                     aria-labelledby="drop2">

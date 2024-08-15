@@ -23,6 +23,7 @@ Auth::routes();
 
 Route::get('/dashboard', [App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard')->middleware('statusCheck');
 Route::get('/profile-user', [App\Http\Controllers\UsersController::class, 'profile'])->name('users.profile');
+Route::put('/update-profile', [App\Http\Controllers\UsersController::class, 'update_profile'])->name('users.update-profile');
 
 // Categories
 Route::group(['prefix' => '/categories'], function() {

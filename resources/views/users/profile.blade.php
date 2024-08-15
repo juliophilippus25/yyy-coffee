@@ -9,8 +9,13 @@
 
                 <div class="card shadow m-3">
                     <div class="card-body pt-4 d-flex flex-column align-items-center">
-                        <img src="modernize/assets/images/profile/user-1.jpg" width="200" height="200" alt="Profile"
-                            class="rounded-circle">
+                        @if (auth()->user()->image)
+                            <img src="{{ asset('storage/images/users/' . auth()->user()->image) }}" width="200"
+                                height="200" alt="Profile" class="rounded-circle" />
+                        @elseif (auth()->user()->image === null)
+                            <img src="modernize/assets/images/profile/user-1.jpg" width="200" height="200"
+                                alt="Profile" class="rounded-circle" />
+                        @endif
                     </div>
                 </div>
 
@@ -62,7 +67,7 @@
                                         <tr>
                                             <td class="fw-bold">Phone</td>
                                             <td class="col-md-1">:</td>
-                                            <td>042425</td>
+                                            <td>{{ Auth::user()->phone }}</td>
                                         </tr>
                                         <tr>
                                             <td class="fw-bold">Joined</td>
@@ -95,33 +100,59 @@
                             <div class="tab-pane fade profile-edit pt-3" id="profile-edit">
 
                                 <!-- Profile Edit Form -->
-                                <form>
+                                <form action="{{ route('users.update-profile') }}" method="POST"
+                                    enctype="multipart/form-data">
+                                    {{ csrf_field() }}
+                                    {{ method_field('put') }}
                                     <div class="row mb-3">
                                         <label for="profileImage" class="col-md-4 col-lg-3 col-form-label">Profile
                                             Image</label>
                                         <div class="col-md-8 col-lg-9">
-                                            <img src="modernize/assets/images/profile/user-1.jpg" width="150"
-                                                height="150" alt="Profile">
-                                            <div class="pt-2">
-                                                <a href="#" class="btn btn-primary btn-sm"
-                                                    title="Upload new profile image"><i class="ti ti-upload"></i></a>
-                                                <a href="#" class="btn btn-danger btn-sm"
-                                                    title="Remove my profile image"><i class="ti ti-trash"></i></a>
+                                            @if (Auth::user()->image)
+                                                <img id="preview" style="border-radius: 10px;" alt="Profile"
+                                                    width="150" height="150"
+                                                    src="{{ asset('storage/images/users/' . $user->image) }}" />
+                                            @elseif(Auth::user()->image == null)
+                                                <img id="preview" style="border-radius: 10px;" alt="Profile"
+                                                    width="150" height="150"
+                                                    src="modernize/assets/images/profile/user-1.jpg" />
+                                            @endif
+                                            <div>
+                                                <input class="form-control mt-3" type="file" id="imgInp"
+                                                    name="image" accept="image/*" @error('image') is-invalid @enderror>
+                                                <small style="color:Tomato;">
+                                                    <em>
+                                                        Upload images in jpg/jpeg/png format and maximum image size
+                                                        2mb
+                                                    </em>
+                                                </small>
                                             </div>
                                         </div>
+                                        @error('image')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
                                     </div>
 
                                     <div class="row mb-3">
                                         <label for="name" class="col-md-4 col-lg-3 col-form-label">Name</label>
                                         <div class="col-md-8 col-lg-9">
-                                            <input name="name" type="text" class="form-control" id="name">
+                                            <input type="text" class="form-control @error('name') is-invalid @enderror"
+                                                name="name" id="name" value="{{ old('name', $user->name) }}">
+                                            @error('name')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
                                         </div>
                                     </div>
 
                                     <div class="row mb-3">
                                         <label for="username" class="col-md-4 col-lg-3 col-form-label">Username</label>
                                         <div class="col-md-8 col-lg-9">
-                                            <input name="username" type="text" class="form-control" id="username">
+                                            <input type="text"
+                                                class="form-control @error('username') is-invalid @enderror" name="username"
+                                                id="username" value="{{ old('username', $user->username) }}">
+                                            @error('username')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
                                         </div>
                                     </div>
 
@@ -129,7 +160,37 @@
                                         <label for="phone" class="col-md-4 col-lg-3 col-form-label">Phone</label>
                                         <div class="col-md-8 col-lg-9">
                                             <input name="phone" type="text" class="form-control" id="phone"
-                                                onkeypress="return isNumberKey(event)">
+                                                onkeypress="return isNumberKey(event)"
+                                                value="{{ old('phone', $user->phone) }}">
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-3">
+                                        <label for="password" class="col-md-4 col-lg-3 col-form-label">New
+                                            Password</label>
+                                        <div class="col-md-8 col-lg-9">
+                                            <input name="password" type="password" class="form-control" id="password">
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-3">
+                                        <label for="password_confirmation"
+                                            class="col-md-4 col-lg-3 col-form-label">Confirm
+                                            Password</label>
+                                        <div class="col-md-8 col-lg-9">
+                                            <input name="password_confirmation" type="password" class="form-control"
+                                                id="password_confirmation">
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-3">
+                                        <label for="check-password" class="col-md-4 col-lg-3 col-form-label"></label>
+                                        <div class="col-md-8 col-lg-9">
+                                            <div class="form-group">
+                                                <input type="checkbox" name="check-password" id="check-password"
+                                                    class="check-password" onclick="togglePassword()">
+                                                <label for="check-password">Check password</label>
+                                            </div>
                                         </div>
                                     </div>
 
@@ -151,12 +212,31 @@
     </section>
 
     <script>
+        imgInp.onchange = evt => {
+            const [file] = imgInp.files
+            if (file) {
+                preview.src = URL.createObjectURL(file)
+            }
+        }
+
         function isNumberKey(evt) {
             var charCode = (evt.which) ? evt.which : event.keyCode
             if (charCode > 31 && (charCode < 48 || charCode > 57))
                 return false;
 
             return true;
+        }
+
+        function togglePassword() {
+            var x = document.getElementById("password");
+            var y = document.getElementById("password_confirmation");
+            if (x.type === "password" && y.type === "password") {
+                x.type = "text";
+                y.type = "text";
+            } else {
+                x.type = "password";
+                y.type = "password";
+            }
         }
     </script>
 @endsection
