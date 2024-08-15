@@ -36,7 +36,7 @@
                                         <label for="username" class="form-label">Username</label>
                                         <input type="text" id="username"
                                             class="form-control @error('username') is-invalid @enderror" name="username"
-                                            value="{{ old('username') }}" required autocomplete="username" autofocus>
+                                            value="{{ old('username') }}" autocomplete="username" autofocus>
                                         @error('username')
                                             <span class="text-danger">{{ $message }}</span>
                                         @enderror
@@ -45,7 +45,7 @@
                                         <label for="password" class="form-label">Password</label>
                                         <input id="password" type="password"
                                             class="form-control @error('password') is-invalid @enderror" name="password"
-                                            required autocomplete="current-password">
+                                            autocomplete="current-password">
                                         @error('password')
                                             <span class="text-danger">{{ $message }}</span>
                                         @enderror
