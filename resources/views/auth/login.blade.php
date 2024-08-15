@@ -34,7 +34,7 @@
                                     @csrf
                                     <div class="mb-3">
                                         <label for="username" class="form-label">Username</label>
-                                        <input type="text" class="form-control" id="username"
+                                        <input type="text" id="username"
                                             class="form-control @error('username') is-invalid @enderror" name="username"
                                             value="{{ old('username') }}" required autocomplete="username" autofocus>
                                         @error('username')

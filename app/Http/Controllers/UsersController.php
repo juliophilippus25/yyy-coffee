@@ -35,14 +35,12 @@ class UsersController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
             'username' => 'required|string|max:255|unique:users,username',
-            'password' => 'required|string|min:8',
-            'roles' => 'required|string', // Validasi roles
+            'password' => 'required|string|min:8'
         ]);
     
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()], 422);
         }
-
 
         // Buat user baru
         User::create([

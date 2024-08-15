@@ -36,29 +36,26 @@
                 <form action="#" method="POST" id="add_user_form" enctype="multipart/form-data">
                     @csrf
                     <div class="modal-body">
-                        <input type="hidden" name="roles" id="roles" value="Staff">
                         <div class="form-group mb-3">
                             <label for="name" class="form-label">Name<b style="color:Tomato;">*</b></label>
-                            <input type="text" class="form-control" name="name" id="name" placeholder="Name">
-                            @error('name')
-                                <span class="text-danger">{{ $message }}</span>
-                            @enderror
+                            <input type="text"
+                                class="form-control @error('name')
+                                is-invalid
+                            @enderror"
+                                name="name" id="name" placeholder="Name">
+                            <span class="text-danger"></span>
                         </div>
                         <div class="form-group mb-3">
                             <label for="username" class="form-label">Username<b style="color:Tomato;">*</b></label>
-                            <input type="text" class="form-control" name="username" id="username"
-                                placeholder="Username">
-                            @error('username')
-                                <span class="text-danger">{{ $message }}</span>
-                            @enderror
+                            <input type="text" class="form-control @error('username') is-invalid @enderror"
+                                name="username" id="username" placeholder="Username">
+                            <span class="text-danger"></span>
                         </div>
                         <div class="form-group mb-3">
                             <label for="password" class="form-label">Password<b style="color:Tomato;">*</b></label>
                             <input type="password" class="form-control" name="password" id="password"
                                 placeholder="Password">
-                            @error('password')
-                                <span class="text-danger">{{ $message }}</span>
-                            @enderror
+                            <span class="text-danger"></span>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -153,8 +150,15 @@
                         $("#add_user_btn").text('Add User');
                     },
                     error: function(xhr, status, error) {
-                        // Tampilkan pesan error jika request gagal
-                        console.error(xhr.responseText);
+                        var errors = xhr.responseJSON.errors;
+
+                        // Reset error messages
+                        $('span.text-danger').text('');
+
+                        // Display error messages
+                        $.each(errors, function(key, value) {
+                            $('#' + key).next('span.text-danger').text(value[0]);
+                        });
                         ToastF.fire({
                             icon: 'error',
                             title: 'Something went wrong!'
