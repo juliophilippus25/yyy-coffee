@@ -15,9 +15,9 @@
                     <thead>
                         <tr>
                             <th class="col-md-1">No</th>
-                            <th class="col-md-3">Name</th>
-                            <th>Phone</th>
-                            <th class="col-md-3">Status</th>
+                            <th class="col-md-4">Name</th>
+                            <th class="col-md-3">Phone</th>
+                            <th class="col-md-2">Status</th>
                             <th class="col-md-2">Action</th>
                         </tr>
                     </thead>
@@ -106,7 +106,7 @@
             $('#myTable').DataTable({
                 processing: true,
                 serverside: true,
-                // responsive: true,
+                responsive: true,
                 ajax: "{{ route('users.index') }}",
                 columns: [{
                         data: 'DT_RowIndex',

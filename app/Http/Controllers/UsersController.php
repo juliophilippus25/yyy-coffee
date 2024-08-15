@@ -61,7 +61,9 @@ class UsersController extends Controller
     public function destroy(Request $request) {
         $id = $request->id;
         $user = User::find($id);
-        $user->delete();
+        if (Storage::delete('images/users/' . $user->image)) {
+            User::destroy($id);
+        }
     }
 
     public function status(Request $request)
