@@ -30,7 +30,7 @@ class LoginController extends Controller
 
     public function authenticated($user)
     {
-        Alert::success('Data berhasil disimpan!', '');
+        toast('You have been logged in successfully.','success')->hideCloseButton()->autoClose(3000);
         return redirect()->intended(route('dashboard'));
     }
 

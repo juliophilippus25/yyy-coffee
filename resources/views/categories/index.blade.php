@@ -120,7 +120,7 @@
                 $("#add_category_btn").text('Adding...');
                 $.ajax({
                     url: '{{ route('categories.store') }}',
-                    method: 'post',
+                    method: 'POST',
                     data: fd,
                     cache: false,
                     contentType: false,
@@ -128,9 +128,10 @@
                     dataType: 'json',
                     success: function(response) {
                         if (response.status == 200) {
-                            Toast.fire(
-                                'Category saved successfully.'
-                            )
+                            Toast.fire({
+                                icon: 'success',
+                                title: 'Category added successfully.'
+                            });
                             $('#myTable').DataTable().ajax.reload();
                         }
                         $("#add_category_btn").text('Add category');
@@ -147,7 +148,7 @@
                         $.each(errors, function(key, value) {
                             $('#' + key).next('span.text-danger').text(value[0]);
                         });
-                        ToastF.fire({
+                        Toast.fire({
                             icon: 'error',
                             title: 'Something went wrong!'
                         });
@@ -181,7 +182,7 @@
                 $("#edit_category_btn").text('Updating...');
                 $.ajax({
                     url: '{{ route('categories.update') }}',
-                    method: 'post',
+                    method: 'POST',
                     data: fd,
                     cache: false,
                     contentType: false,
@@ -189,9 +190,10 @@
                     dataType: 'json',
                     success: function(response) {
                         if (response.status == 200) {
-                            Toast.fire(
-                                'Category updated successfully.'
-                            )
+                            Toast.fire({
+                                icon: 'success',
+                                title: 'Category updated successfully.'
+                            });
                             $('#myTable').DataTable().ajax.reload();
                         }
                         $("#edit_category_btn").text('Update Category');
@@ -209,6 +211,11 @@
                                 $('#edit_category_form input[name="' + key + '"]').next(
                                     'span.text-danger').text(value[0]);
                             });
+                            Toast.fire({
+                                icon: 'error',
+                                title: 'Something went wrong!'
+                            });
+
                         }
                         $("#edit_category_btn").text('Update Category');
                     }
@@ -233,16 +240,16 @@
                     if (result.isConfirmed) {
                         $.ajax({
                             url: '{{ route('categories.delete') }}',
-                            method: 'delete',
+                            method: 'DELETE',
                             data: {
                                 id: id,
                                 _token: csrf
                             },
                             success: function(response) {
-                                console.log(response);
-                                Toast.fire(
-                                    'Category has been deleted.'
-                                )
+                                Toast.fire({
+                                    icon: 'success',
+                                    title: 'Category has been deleted.'
+                                });
                                 $('#myTable').DataTable().ajax.reload();
                             }
                         });

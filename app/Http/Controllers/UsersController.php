@@ -57,9 +57,7 @@ class UsersController extends Controller
     public function destroy(Request $request) {
         $id = $request->id;
         $user = User::find($id);
-        if(Auth::user()->id != $id AND $user->roles == 'Admin') {
-            $user->delete();
-        }
+        $user->delete();
     }
 
     public function status(Request $request)

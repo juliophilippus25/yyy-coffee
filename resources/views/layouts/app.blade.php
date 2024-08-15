@@ -74,6 +74,7 @@
         </div>
     </div>
 
+    @include('sweetalert::alert')
     <script src="modernize/assets/libs/jquery/dist/jquery.min.js"></script>
     <script src="modernize/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="modernize/assets/js/sidebarmenu.js"></script>
@@ -83,30 +84,16 @@
     <script src="https://cdn.datatables.net/2.1.3/js/dataTables.bootstrap5.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
-        //SweetAlert2 Toast
         const Toast = Swal.mixin({
             toast: true,
-            background: '#13DEB9',
-            color: '#fff',
-            iconColor: '#fff',
             position: 'top-end',
-            icon: "success",
             showConfirmButton: false,
-            timer: 2500,
+            timer: 3000,
             timerProgressBar: true,
-        });
-
-        //SweetAlert2 Toast
-        const ToastF = Swal.mixin({
-            toast: true,
-            background: '#FA896B',
-            color: '#fff',
-            iconColor: '#fff',
-            position: 'top-end',
-            icon: "error",
-            showConfirmButton: false,
-            timer: 2500,
-            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
         });
     </script>
     @yield('script')

@@ -116,7 +116,7 @@
                 $("#add_user_btn").text('Adding...');
                 $.ajax({
                     url: '{{ route('users.store') }}',
-                    method: 'post',
+                    method: 'POST',
                     data: fd,
                     cache: false,
                     contentType: false,
@@ -127,7 +127,7 @@
                             // Tampilkan notifikasi sukses
                             Toast.fire({
                                 icon: 'success',
-                                title: 'User saved successfully.'
+                                title: 'User added successfully.'
                             });
 
                             // Reload data di tabel
@@ -136,12 +136,6 @@
                             // Reset form dan tutup modal
                             $("#add_user_form")[0].reset();
                             $("#addUserModal").modal('hide');
-                        } else {
-                            // Tangani jika ada status lain yang tidak diharapkan
-                            Toast.fire({
-                                icon: 'error',
-                                title: 'Failed to save user.'
-                            });
                         }
                         $("#add_user_btn").text('Add User');
                     },
@@ -155,7 +149,7 @@
                         $.each(errors, function(key, value) {
                             $('#' + key).next('span.text-danger').text(value[0]);
                         });
-                        ToastF.fire({
+                        Toast.fire({
                             icon: 'error',
                             title: 'Something went wrong!'
                         });
@@ -164,7 +158,7 @@
                 });
             });
 
-            // delete category ajax request
+            // delete user ajax request
             $(document).on('click', '.deleteIcon', function(e) {
                 e.preventDefault();
                 let id = $(this).attr('id');
@@ -182,16 +176,16 @@
                     if (result.isConfirmed) {
                         $.ajax({
                             url: '{{ route('users.delete') }}',
-                            method: 'delete',
+                            method: 'DELETE',
                             data: {
                                 id: id,
                                 _token: csrf
                             },
                             success: function(response) {
-                                console.log(response);
-                                Toast.fire(
-                                    'User has been deleted.'
-                                )
+                                Toast.fire({
+                                    icon: 'success',
+                                    title: 'User has been deleted.'
+                                });
                                 $('#myTable').DataTable().ajax.reload();
                             }
                         });
@@ -222,7 +216,10 @@
                         }
                     },
                     error: function(xhr) {
-                        console.log('An error occurred:', xhr.responseText);
+                        Toast.fire({
+                            icon: 'error',
+                            title: 'Something went wrong!'
+                        });
                     }
                 });
             });
