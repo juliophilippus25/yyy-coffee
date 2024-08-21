@@ -41,7 +41,7 @@
                 @endif
                 @if (auth()->user()->roles == 'Admin' or auth()->user()->roles == 'Staff')
                     <li class="sidebar-item">
-                        <a class="sidebar-link" href="./ui-buttons.html" aria-expanded="false">
+                        <a class="sidebar-link" href="{{ route('products.index') }}" aria-expanded="false">
                             <span>
                                 <i class="ti ti-shopping-cart"></i>
                             </span>

@@ -16,7 +16,7 @@
                     <thead>
                         <tr>
                             <th class="col-md-1">No</th>
-                            <th class="col-md-4">Name</th>
+                            <th class="col-md-9">Name</th>
                             <th class="col-md-2">Action</th>
                         </tr>
                     </thead>
