@@ -30,6 +30,14 @@
                             <span class="hide-menu">Categories</span>
                         </a>
                     </li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link" href="{{ route('payments.index') }}" aria-expanded="false">
+                            <span>
+                                <i class="ti ti-credit-card"></i>
+                            </span>
+                            <span class="hide-menu">Payments</span>
+                        </a>
+                    </li>
                 @endif
                 @if (auth()->user()->roles == 'Admin' or auth()->user()->roles == 'Staff')
                     <li class="sidebar-item">
@@ -45,7 +53,7 @@
                             <span>
                                 <i class="ti ti-truck-delivery"></i>
                             </span>
-                            <span class="hide-menu">Orders</span>
+                            <span class="hide-menu">Transactions</span>
                         </a>
                     </li>
                 @endif

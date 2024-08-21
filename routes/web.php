@@ -34,6 +34,12 @@ Route::group(['prefix' => '/categories'], function() {
     Route::delete('/delete-category', [App\Http\Controllers\CategoryController::class, 'destroy'])->name('categories.delete');
 });
 
+// Payments
+Route::group(['prefix' => '/payments'], function() {
+    Route::get('', [App\Http\Controllers\PaymentController::class, 'index'])->name('payments.index');
+});
+
+// Users
 Route::group(['prefix' => '/users'], function() {
     Route::get('', [App\Http\Controllers\UsersController::class, 'index'])->name('users.index');
     Route::post('/store-user', [App\Http\Controllers\UsersController::class, 'store'])->name('users.store');
