@@ -129,7 +129,7 @@
                     cache: false,
                     contentType: false,
                     processData: false,
-                    dataType: 'json',
+                    dataType: 'JSON',
                     success: function(response) {
                         if (response.status == 200) {
                             Toast.fire({
@@ -166,7 +166,7 @@
                 let id = $(this).attr('id');
                 $.ajax({
                     url: '{{ route('categories.edit') }}',
-                    method: 'get',
+                    method: 'GET',
                     data: {
                         id: id,
                         _token: '{{ csrf_token() }}'
@@ -190,7 +190,7 @@
                     cache: false,
                     contentType: false,
                     processData: false,
-                    dataType: 'json',
+                    dataType: 'JSON',
                     success: function(response) {
                         if (response.status == 200) {
                             Toast.fire({

@@ -37,6 +37,10 @@ Route::group(['prefix' => '/categories'], function() {
 // Payments
 Route::group(['prefix' => '/payments'], function() {
     Route::get('', [App\Http\Controllers\PaymentController::class, 'index'])->name('payments.index');
+    Route::post('/store-payment', [App\Http\Controllers\PaymentController::class, 'store'])->name('payments.store');
+    Route::get('/edit-payment', [App\Http\Controllers\PaymentController::class, 'edit'])->name('payments.edit');
+    Route::post('/update-payment', [App\Http\Controllers\PaymentController::class, 'update'])->name('payments.update');
+    Route::delete('/delete-payment', [App\Http\Controllers\PaymentController::class, 'destroy'])->name('payments.delete');
 });
 
 // Users

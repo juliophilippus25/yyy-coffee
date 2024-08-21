@@ -161,7 +161,7 @@
                     cache: false,
                     contentType: false,
                     processData: false,
-                    dataType: 'json',
+                    dataType: 'JSON',
                     success: function(response) {
                         if (response.status === 200) {
                             Toast.fire({
