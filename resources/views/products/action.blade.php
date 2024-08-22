@@ -1,5 +1,5 @@
-<a href="javascriptvoid(0)" id="{{ $data->id }}" data-toggle="tooltip" data-original-title="Edit"
-    class="btn btn-primary btn-sm showIcon" title="Edit" data-bs-toggle="modal" data-bs-target="#showProductModal">
+<a href="javascriptvoid(0)" id="{{ $data->id }}" data-toggle="tooltip" data-original-title="Show"
+    class="btn btn-primary btn-sm showIcon" title="Detail" data-bs-toggle="modal" data-bs-target="#showProductModal">
     <i class="ti ti-eye"></i>
 </a>
 <a href="javascriptvoid(0)" id="{{ $data->id }}" data-toggle="tooltip" data-original-title="Edit"

@@ -74,6 +74,8 @@
                                 <div class="mb-3">
                                     <label for="image" class="form-label">Product
                                         Image</label>
+                                    <img id="preview" src="" alt="Image Preview"
+                                        style="display: none; width: 200px; height: auto;" />
                                     <div class="col-md-12">
                                         <div>
                                             <small style="color:Tomato;">
@@ -83,7 +85,7 @@
                                                 </em>
                                             </small>
                                             <input class="form-control" type="file" id="imgInp" name="image"
-                                                accept="image/*">
+                                                id="imgInp" accept="image/*">
                                         </div>
                                     </div>
                                     <span class="text-danger"></span>
@@ -242,12 +244,16 @@
             return true;
         }
 
+        const imgInp = document.getElementById('imgInp');
+        const preview = document.getElementById('preview');
+
         imgInp.onchange = evt => {
-            const [file] = imgInp.files
+            const [file] = imgInp.files;
             if (file) {
-                preview.src = URL.createObjectURL(file)
+                preview.src = URL.createObjectURL(file);
+                preview.style.display = 'block';
             }
-        }
+        };
 
         $(document).ready(function() {
             $('#myTable').DataTable({
@@ -296,6 +302,9 @@
                             });
                             $('#myTable').DataTable().ajax.reload();
                         }
+                        preview.src = ''; // Menghapus src
+                        preview.style.display = 'none'; // Menyembunyikan elemen pratinjau
+                        imgInp.value = ''; // Mengosongkan input file
                         $("#add_product_btn").text('Add product');
                         $("#add_product_form")[0].reset();
                         $("#addProductModal").modal('hide');
@@ -337,7 +346,7 @@
                         $("#product_id").val(response.id);
                         if (response.image) {
                             $("#image").html(
-                                `<img src="/storage/images/products/${response.image}" width="100" class="img-fluid img-thumbnail" alt="Product Image">`
+                                `<img src="/storage/images/products/${response.image}" width="200" class="img-fluid img-thumbnail" alt="Product Image">`
                             );
                         } else {
                             $("#image").text('No image available');
@@ -372,7 +381,7 @@
                         $('#productPrice').text(formatIDR(response.price));
                         if (response.image) {
                             $("#productImage").html(
-                                `<img src="/storage/images/products/${response.image}" width="100" class="img-fluid img-thumbnail" alt="Product Image">`
+                                `<img src="/storage/images/products/${response.image}" width="200" class="img-fluid img-thumbnail" alt="Product Image">`
                             );
                         } else {
                             $("#productImage").text('No image available');
