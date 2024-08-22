@@ -40,17 +40,30 @@ class ProductController extends Controller
             'name' => 'required|string|max:255|unique:products,name',
             'category_id' => 'required',
             'description' => 'required|string|max:500',
-            'price' => 'required|numeric'
+            'price' => 'required|numeric',
+            'image' => 'nullable|mimes:jpg,jpeg,png|max:2048',
         ]);
     
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()], 422);
         }
+
+        // proses upload image
+        if ($request->hasFile('image') && $request->file('image')->isValid()) {
+            $extension = $request->image->getClientOriginalExtension();
+            $fileName = time() . '.' . $extension;
+            $image = $request->file('image')->storeAs('images/products', $fileName);
+            $image = $fileName;
+        } else {
+            $image = NULL;
+        }
+
         Product::create([
             'name' => $request->name,
             'category_id' => $request->category_id,
             'description' => $request->description,
-            'price' => $request->price
+            'price' => $request->price,
+            'image' => $image
         ]);
 
         return response()->json([

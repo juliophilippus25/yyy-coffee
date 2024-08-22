@@ -47,9 +47,10 @@
                                     <span class="text-danger"></span>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="category" class="form-label">Category <b style="color:Tomato;">*</b></label>
+                                    <label for="category_id" class="form-label">Category <b
+                                            style="color:Tomato;">*</b></label>
                                     <select class="form-select" aria-label="Default select example" name="category_id">
-                                        <option hidden disabled selected value>Choose Category</option>
+                                        <option hidden disabled selected value>Select a category</option>
                                         @foreach ($category as $data)
                                             <option value="{{ $data->id }}">
                                                 {{ $data->name }}
@@ -68,6 +69,23 @@
                                     <label for="price" class="form-label">Price <b style="color:Tomato;">*</b></label>
                                     <input type="text" class="form-control" name="price" id="price"
                                         placeholder="Price Product" onkeypress="return isNumberKey(event)">
+                                    <span class="text-danger"></span>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="image" class="form-label">Product
+                                        Image</label>
+                                    <div class="col-md-12">
+                                        <div>
+                                            <small style="color:Tomato;">
+                                                <em>
+                                                    Upload image in jpg/jpeg/png format and maximum image size
+                                                    2mb
+                                                </em>
+                                            </small>
+                                            <input class="form-control" type="file" id="imgInp" name="image"
+                                                accept="image/*">
+                                        </div>
+                                    </div>
                                     <span class="text-danger"></span>
                                 </div>
                             </div>
@@ -94,6 +112,7 @@
                     <form action="#" method="POST" id="edit_product_form" enctype="multipart/form-data">
                         @csrf
                         <input type="hidden" name="product_id" id="product_id">
+                        <input type="hidden" name="product_image" id="product_image">
                         <div class="modal-body p-4 bg">
                             <div class="row">
                                 <div class="mb-3">
@@ -108,7 +127,7 @@
                                             style="color:Tomato;">*</b></label>
                                     <select class="form-select" aria-label="Default select example" name="category_id"
                                         id="category_id">
-                                        <option hidden disabled selected value>Choose Category</option>
+                                        <option hidden disabled selected value>Select a category</option>
                                         @foreach ($category as $data)
                                             <option value="{{ $data->id }}">
                                                 {{ $data->name }}
@@ -128,6 +147,24 @@
                                     <label for="price" class="form-label">Price <b style="color:Tomato;">*</b></label>
                                     <input type="text" class="form-control" name="price" id="show-price"
                                         placeholder="Price Product" onkeypress="return isNumberKey(event)">
+                                    <span class="text-danger"></span>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="profileImage" class="form-label">Product
+                                        Image</label>
+                                    <div class="mb-2" id="image"></div>
+                                    <div class="col-md-12">
+                                        <div>
+                                            <small style="color:Tomato;">
+                                                <em>
+                                                    Upload image in jpg/jpeg/png format and maximum image size
+                                                    2mb
+                                                </em>
+                                            </small>
+                                            <input class="form-control" type="file" id="imgInp" name="image"
+                                                accept="image/*">
+                                        </div>
+                                    </div>
                                     <span class="text-danger"></span>
                                 </div>
                             </div>
@@ -176,6 +213,11 @@
                                     <td class="col-md-1">:</td>
                                     <td id="productPrice"></td>
                                 </tr>
+                                <tr>
+                                    <td class="fw-bold">Product Image</td>
+                                    <td class="col-md-1">:</td>
+                                    <td id="productImage"></td>
+                                </tr>
                             </tbody>
 
                         </table>
@@ -199,6 +241,13 @@
                 return false;
 
             return true;
+        }
+
+        imgInp.onchange = evt => {
+            const [file] = imgInp.files
+            if (file) {
+                preview.src = URL.createObjectURL(file)
+            }
         }
 
         $(document).ready(function() {
@@ -287,6 +336,14 @@
                         $("#category_id").val(response.category_id);
                         $("#show-price").val(response.price);
                         $("#product_id").val(response.id);
+                        if (response.image) {
+                            $("#image").html(
+                                `<img src="/storage/images/products/${response.image}" width="100" class="img-fluid img-thumbnail" alt="Product Image">`
+                            );
+                        } else {
+                            $("#image").text('No image available');
+                        }
+                        $("#product_image").val(response.avatar);
                     }
                 });
             });
@@ -314,6 +371,13 @@
                         $("#productDescription").text(response.description);
                         $("#productCategory").text(response.category.name);
                         $('#productPrice').text(formatIDR(response.price));
+                        if (response.image) {
+                            $("#productImage").html(
+                                `<img src="/storage/images/products/${response.image}" width="100" class="img-fluid img-thumbnail" alt="Product Image">`
+                            );
+                        } else {
+                            $("#productImage").text('No image available');
+                        }
                     }
                 });
             });
