@@ -29,7 +29,6 @@ class CategoryController extends Controller
         return view('categories.index');
     }
 
-
     public function store(Request $request) {
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255|unique:categories,name'
