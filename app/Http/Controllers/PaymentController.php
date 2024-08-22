@@ -56,7 +56,7 @@ class PaymentController extends Controller
         $payment = Payment::find($request->payment_id);
         $id = $request->route('id');
         $validator = Validator::make($request->all(), [
-            'name' => 'required|string|max:255|unique:payments,name' . $id
+            'name' => 'required|string|max:255'
         ]);
     
         if ($validator->fails()) {

@@ -67,7 +67,7 @@ class ProductController extends Controller
         $product = Product::find($request->product_id);
         $id = $request->route('id');
         $validator = Validator::make($request->all(), [
-            'name' => 'required|string|max:255|unique:products,name' . $id,
+            'name' => 'required|string|max:255',
             'category_id' => 'required',
             'description' => 'required|string|max:500',
             'price' => 'required|numeric'

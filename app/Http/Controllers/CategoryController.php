@@ -56,7 +56,7 @@ class CategoryController extends Controller
         $category = Category::find($request->category_id);
         $id = $request->route('id');
         $validator = Validator::make($request->all(), [
-            'name' => 'required|string|max:255|unique:categories,name' . $id
+            'name' => 'required|string|max:255'
         ]);
     
         if ($validator->fails()) {
