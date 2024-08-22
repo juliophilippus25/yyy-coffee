@@ -137,7 +137,8 @@
                                         <label for="name" class="col-md-4 col-lg-3 col-form-label">Name</label>
                                         <div class="col-md-8 col-lg-9">
                                             <input type="text" class="form-control @error('name') is-invalid @enderror"
-                                                name="name" id="name" value="{{ old('name', $user->name) }}">
+                                                name="name" id="name" value="{{ old('name', $user->name) }}"
+                                                placeholder="Enter your full name">
                                             @error('name')
                                                 <span class="text-danger">{{ $message }}</span>
                                             @enderror
@@ -149,7 +150,8 @@
                                         <div class="col-md-8 col-lg-9">
                                             <input type="text"
                                                 class="form-control @error('username') is-invalid @enderror" name="username"
-                                                id="username" value="{{ old('username', $user->username) }}">
+                                                id="username" value="{{ old('username', $user->username) }}"
+                                                placeholder="Choose a unique username">
                                             @error('username')
                                                 <span class="text-danger">{{ $message }}</span>
                                             @enderror
@@ -162,7 +164,8 @@
                                             <input name="phone" type="text"
                                                 class="form-control @error('phone') is-invalid @enderror" id="phone"
                                                 onkeypress="return isNumberKey(event)"
-                                                value="{{ old('phone', $user->phone) }}">
+                                                value="{{ old('phone', $user->phone) }}"
+                                                placeholder="Enter your phone number">
                                         </div>
                                         @error('phone')
                                             <span class="text-danger">{{ $message }}</span>
@@ -175,7 +178,7 @@
                                         <div class="col-md-8 col-lg-9">
                                             <input name="password" type="password"
                                                 class="form-control @error('password') is-invalid @enderror"
-                                                id="password">
+                                                id="password" placeholder="Create a strong password">
                                         </div>
                                         @error('password')
                                             <span class="text-danger">{{ $message }}</span>
@@ -189,7 +192,7 @@
                                         <div class="col-md-8 col-lg-9">
                                             <input name="password_confirmation" type="password"
                                                 class="form-control @error('password_confirmation') is-invalid @enderror"
-                                                id="password_confirmation">
+                                                id="password_confirmation" placeholder="Re-enter your password">
                                         </div>
                                         @error('password_confirmation')
                                             <span class="text-danger">{{ $message }}</span>
