@@ -39,10 +39,9 @@
                         <div class="modal-body p-4">
                             <div class="row">
                                 <div class="mb-3">
-                                    <label for="name" class="form-label">Category Name <b
-                                            style="color:Tomato;">*</b></label>
+                                    <label for="name" class="form-label">Name <b style="color:Tomato;">*</b></label>
                                     <input type="text" class="form-control" name="name" id="name"
-                                        placeholder="Category Name">
+                                        placeholder="Enter the category name">
                                     <span class="text-danger"></span>
                                 </div>
                             </div>
@@ -72,10 +71,9 @@
                         <div class="modal-body p-4 bg">
                             <div class="row">
                                 <div class="mb-3">
-                                    <label for="name" class="form-label">Category Name <b
-                                            style="color:Tomato;">*</b></label>
+                                    <label for="name" class="form-label">Name <b style="color:Tomato;">*</b></label>
                                     <input type="text" class="form-control" name="name" id="show-name"
-                                        placeholder="Category Name">
+                                        placeholder="Enter the category name">
                                     <span class="text-danger"></span>
                                 </div>
                             </div>

@@ -40,17 +40,16 @@
                         <div class="modal-body p-4">
                             <div class="row">
                                 <div class="mb-3">
-                                    <label for="name" class="form-label">Product Name <b
-                                            style="color:Tomato;">*</b></label>
+                                    <label for="name" class="form-label">Name <b style="color:Tomato;">*</b></label>
                                     <input type="text" class="form-control" name="name" id="name"
-                                        placeholder="Product Name">
+                                        placeholder="Enter the product name">
                                     <span class="text-danger"></span>
                                 </div>
                                 <div class="mb-3">
                                     <label for="category_id" class="form-label">Category <b
                                             style="color:Tomato;">*</b></label>
                                     <select class="form-select" aria-label="Default select example" name="category_id">
-                                        <option hidden disabled selected value>Select a category</option>
+                                        <option hidden disabled selected value>Select a category product</option>
                                         @foreach ($category as $data)
                                             <option value="{{ $data->id }}">
                                                 {{ $data->name }}
@@ -62,13 +61,14 @@
                                 <div class="mb-3">
                                     <label for="description" class="form-label">Description <b
                                             style="color:Tomato;">*</b></label>
-                                    <textarea class="form-control" name="description" id="description" rows="3" placeholder="Desription Product"></textarea>
+                                    <textarea class="form-control" name="description" id="description" rows="3"
+                                        placeholder="Enter the product description"></textarea>
                                     <span class="text-danger"></span>
                                 </div>
                                 <div class="mb-3">
                                     <label for="price" class="form-label">Price <b style="color:Tomato;">*</b></label>
                                     <input type="text" class="form-control" name="price" id="price"
-                                        placeholder="Price Product" onkeypress="return isNumberKey(event)">
+                                        placeholder="Enter the product price" onkeypress="return isNumberKey(event)">
                                     <span class="text-danger"></span>
                                 </div>
                                 <div class="mb-3">
@@ -116,10 +116,9 @@
                         <div class="modal-body p-4 bg">
                             <div class="row">
                                 <div class="mb-3">
-                                    <label for="name" class="form-label">Product Name <b
-                                            style="color:Tomato;">*</b></label>
+                                    <label for="name" class="form-label">Name <b style="color:Tomato;">*</b></label>
                                     <input type="text" class="form-control" name="name" id="show-name"
-                                        placeholder="Product Name">
+                                        placeholder="Enter the product name">
                                     <span class="text-danger"></span>
                                 </div>
                                 <div class="mb-3">
@@ -127,7 +126,7 @@
                                             style="color:Tomato;">*</b></label>
                                     <select class="form-select" aria-label="Default select example" name="category_id"
                                         id="category_id">
-                                        <option hidden disabled selected value>Select a category</option>
+                                        <option hidden disabled selected value>Select a category product</option>
                                         @foreach ($category as $data)
                                             <option value="{{ $data->id }}">
                                                 {{ $data->name }}
@@ -140,13 +139,13 @@
                                     <label for="description" class="form-label">Description <b
                                             style="color:Tomato;">*</b></label>
                                     <textarea class="form-control" name="description" id="show-description" rows="3"
-                                        placeholder="Desription Product"></textarea>
+                                        placeholder="Enter the product description"></textarea>
                                     <span class="text-danger"></span>
                                 </div>
                                 <div class="mb-3">
                                     <label for="price" class="form-label">Price <b style="color:Tomato;">*</b></label>
                                     <input type="text" class="form-control" name="price" id="show-price"
-                                        placeholder="Price Product" onkeypress="return isNumberKey(event)">
+                                        placeholder="Enter the product price" onkeypress="return isNumberKey(event)">
                                     <span class="text-danger"></span>
                                 </div>
                                 <div class="mb-3">
@@ -194,7 +193,7 @@
 
                             <tbody>
                                 <tr>
-                                    <td class="fw-bold">Product Name</td>
+                                    <td class="fw-bold">Name</td>
                                     <td class="col-md-1">:</td>
                                     <td id="productName"></td>
                                 </tr>
@@ -214,7 +213,7 @@
                                     <td id="productPrice"></td>
                                 </tr>
                                 <tr>
-                                    <td class="fw-bold">Product Image</td>
+                                    <td class="fw-bold">Image</td>
                                     <td class="col-md-1">:</td>
                                     <td id="productImage"></td>
                                 </tr>

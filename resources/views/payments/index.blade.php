@@ -39,10 +39,9 @@
                         <div class="modal-body p-4">
                             <div class="row">
                                 <div class="mb-3">
-                                    <label for="name" class="form-label">Payment Name <b
-                                            style="color:Tomato;">*</b></label>
+                                    <label for="name" class="form-label">Name <b style="color:Tomato;">*</b></label>
                                     <input type="text" class="form-control" name="name" id="name"
-                                        placeholder="Payment Name">
+                                        placeholder="Enter payment method name">
                                     <span class="text-danger"></span>
                                 </div>
                             </div>
