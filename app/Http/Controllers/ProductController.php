@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
 use App\Models\Product;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Facades\Validator;
@@ -18,7 +18,7 @@ class ProductController extends Controller
     public function index(Request $request)
     {
         $category = Category::get();
-        $product = Product::get();
+
         if ($request->ajax()) {
             $data = Product::with('category')->orderBy('name', 'asc');
             return DataTables::of($data)
@@ -32,7 +32,7 @@ class ProductController extends Controller
                 ->make(true);
         }
     
-        return view('products.index', compact('category', 'product'));
+        return view('products.index', compact('category'));
     }
 
     public function store(Request $request) {

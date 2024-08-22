@@ -187,7 +187,7 @@
                 </div>
             </div>
         </div>
-        {{-- End Edit Modal --}}
+        {{-- End Show Modal --}}
 
     </section>
 
@@ -291,6 +291,14 @@
                 });
             });
 
+            function formatIDR(amount) {
+                var number = parseFloat(amount);
+                if (isNaN(number)) {
+                    return 'Rp 0';
+                }
+                return 'IDR ' + number.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+            }
+
             // show product ajax request
             $(document).on('click', '.showIcon', function(e) {
                 e.preventDefault();
@@ -305,7 +313,7 @@
                         $("#productName").text(response.name);
                         $("#productDescription").text(response.description);
                         $("#productCategory").text(response.category.name);
-                        $("#productPrice").text(response.price);
+                        $('#productPrice').text(formatIDR(response.price));
                     }
                 });
             });
