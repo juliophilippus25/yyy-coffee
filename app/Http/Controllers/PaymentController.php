@@ -54,7 +54,6 @@ class PaymentController extends Controller
 
     public function update(Request $request) {
         $payment = Payment::find($request->payment_id);
-        $id = $request->route('id');
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255'
         ]);

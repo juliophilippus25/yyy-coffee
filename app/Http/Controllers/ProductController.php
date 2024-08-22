@@ -18,6 +18,7 @@ class ProductController extends Controller
     public function index(Request $request)
     {
         $category = Category::get();
+        $product = Product::get();
         if ($request->ajax()) {
             $data = Product::with('category')->orderBy('name', 'asc');
             return DataTables::of($data)
@@ -31,7 +32,7 @@ class ProductController extends Controller
                 ->make(true);
         }
     
-        return view('products.index', compact('category'));
+        return view('products.index', compact('category', 'product'));
     }
 
     public function store(Request $request) {
@@ -65,7 +66,6 @@ class ProductController extends Controller
 
     public function update(Request $request) {
         $product = Product::find($request->product_id);
-        $id = $request->route('id');
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
             'category_id' => 'required',
@@ -87,6 +87,12 @@ class ProductController extends Controller
         return response()->json([
             'status' => 200,
         ]);
+    }
+
+    public function show(Request $request) {
+        $id = $request->id;
+        $product = Product::with('category')->find($id);
+        return response()->json($product);
     }
 
     public function destroy(Request $request) {

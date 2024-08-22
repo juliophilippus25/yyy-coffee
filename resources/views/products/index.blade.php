@@ -143,6 +143,52 @@
         </div>
         {{-- End Edit Modal --}}
 
+        {{-- Show Modal --}}
+        <div class="modal fade" id="showProductModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+            data-bs-backdrop="static" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Detail Product</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div>
+                        <table class="table table-borderless table-striped">
+
+                            <tbody>
+                                <tr>
+                                    <td class="fw-bold">Product Name</td>
+                                    <td class="col-md-1">:</td>
+                                    <td id="productName"></td>
+                                </tr>
+                                <tr>
+                                    <td class="fw-bold">Category</td>
+                                    <td class="col-md-1">:</td>
+                                    <td id="productCategory"></td>
+                                </tr>
+                                <tr>
+                                    <td class="fw-bold">Description</td>
+                                    <td class="col-md-1">:</td>
+                                    <td id="productDescription"></td>
+                                </tr>
+                                <tr>
+                                    <td class="fw-bold">Price</td>
+                                    <td class="col-md-1">:</td>
+                                    <td id="productPrice"></td>
+                                </tr>
+                            </tbody>
+
+                        </table>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{-- End Edit Modal --}}
+
     </section>
 
 @section('script')
@@ -241,6 +287,25 @@
                         $("#category_id").val(response.category_id);
                         $("#show-price").val(response.price);
                         $("#product_id").val(response.id);
+                    }
+                });
+            });
+
+            // show product ajax request
+            $(document).on('click', '.showIcon', function(e) {
+                e.preventDefault();
+                let id = $(this).attr('id');
+                $.ajax({
+                    url: '{{ route('products.show') }}',
+                    method: 'GET',
+                    data: {
+                        id: id
+                    },
+                    success: function(response) {
+                        $("#productName").text(response.name);
+                        $("#productDescription").text(response.description);
+                        $("#productCategory").text(response.category.name);
+                        $("#productPrice").text(response.price);
                     }
                 });
             });
