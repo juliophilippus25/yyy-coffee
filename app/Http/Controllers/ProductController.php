@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Facades\Validator;
 
@@ -111,6 +112,8 @@ class ProductController extends Controller
     public function destroy(Request $request) {
         $id = $request->id;
         $product = Product::find($id);
-        $product->delete();
+        if (Storage::delete('images/products/' . $product->image)) {
+            Product::destroy($id);
+        }
     }
 }
