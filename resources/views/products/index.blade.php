@@ -302,9 +302,9 @@
                             });
                             $('#myTable').DataTable().ajax.reload();
                         }
-                        preview.src = ''; // Menghapus src
-                        preview.style.display = 'none'; // Menyembunyikan elemen pratinjau
-                        imgInp.value = ''; // Mengosongkan input file
+                        preview.src = '';
+                        preview.style.display = 'none';
+                        imgInp.value = '';
                         $("#add_product_btn").text('Add product');
                         $("#add_product_form")[0].reset();
                         $("#addProductModal").modal('hide');
