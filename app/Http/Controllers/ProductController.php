@@ -84,7 +84,8 @@ class ProductController extends Controller
             'name' => 'required|string|max:255',
             'category_id' => 'required',
             'description' => 'required|string|max:500',
-            'price' => 'required|numeric'
+            'price' => 'required|numeric',
+            'image' => 'nullable|mimes:jpg,jpeg,png|max:2048',
         ]);
     
         if ($validator->fails()) {
@@ -95,6 +96,18 @@ class ProductController extends Controller
         $product->category_id = $request->input('category_id');
         $product->description = $request->input('description');
         $product->price = $request->input('price');
+
+        // Proses upload image
+        if($request->file('image')) {
+            $oldImage = $product->image;
+            $extension = $request->image->getClientOriginalExtension();
+            $fileName = time() . '.' .$extension;
+            $image = $request->file('image')->storeAs('images/products', $fileName);
+            $product->image = $fileName;
+            if ($oldImage) {
+                Storage::delete('images/products/' . $oldImage);
+            }
+        }
 
         $product->update();
 
