@@ -56,6 +56,8 @@ Route::group(['prefix' => '/products'], function() {
 // Transactions
 Route::group(['prefix' => '/transactions'], function() {
     Route::get('', [App\Http\Controllers\TransactionController::class, 'index'])->name('transactions.index');
+    Route::post('/store-transaction', [App\Http\Controllers\TransactionController::class, 'store'])->name('transactions.store');
+    Route::delete('/delete-transaction', [App\Http\Controllers\TransactionController::class, 'destroy'])->name('transactions.delete');
 });
 
 // Users
