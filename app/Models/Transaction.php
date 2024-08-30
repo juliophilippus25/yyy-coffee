@@ -9,10 +9,27 @@ class Transaction extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['customer_name', 'user_id'];
+    protected $fillable = [
+        'transaction_code',
+        'transaction_date',
+        'customer_name',
+        'total_amount',
+        'payment_id',
+        'user_id'
+    ];
+
+    public function transactionProducts()
+    {
+        return $this->hasMany(TransactionProduct::class, 'transaction_code_product', 'transaction_code');
+    }
+
+    public function payment()
+    {
+        return $this->belongsTo(Payment::class);
+    }
 
     public function user()
     {
-        return $this->hasOne(User::class);
+        return $this->belongsTo(User::class);
     }
 }
