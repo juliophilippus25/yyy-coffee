@@ -131,7 +131,7 @@
                                         <td>
                                             <button type="button" class="btn btn-primary btn-sm select-product-btn"
                                                 data-id="{{ $product->id }}" data-name="{{ $product->name }}"
-                                                data-price="{{ $product->price }}">
+                                                data-price="{{ $product->price }}" title="Add">
                                                 <i class="ti ti-plus"></i>
                                             </button>
                                         </td>
@@ -236,7 +236,7 @@
                                 <td>${formattedPrice}</td>
                                 <td><span class="product-total-price">${formattedPrice}</span></td>
                                 <td>
-                                    <button type="button" class="btn btn-danger btn-sm remove-product-btn"><i class="ti ti-trash"></i></button>
+                                    <button type="button" class="btn btn-danger btn-sm remove-product-btn" title="Delete"><i class="ti ti-trash"></i></button>
                                 </td>
                               </tr>`;
                         document.querySelector('#product-list tbody').insertAdjacentHTML('beforeend',
@@ -274,22 +274,6 @@
 
                 // Function to update the total price and show/hide total amount
                 function updateTotalPrice() {
-                    // var totalPrice = 0;
-                    // document.querySelectorAll('.product-total-price').forEach(function(priceElement) {
-                    //     totalPrice += parseFloat(priceElement.textContent);
-                    // });
-
-                    // // Update total price in element with ID total-price
-                    // var totalPriceElement = document.querySelector('#total-price');
-                    // totalPriceElement.textContent = totalPrice.toFixed(2);
-
-                    // // Show or hide total amount container
-                    // var totalAmountContainer = document.querySelector('#total-amount-container');
-                    // if (totalPrice > 0) {
-                    //     totalAmountContainer.classList.remove('d-none');
-                    // } else {
-                    //     totalAmountContainer.classList.add('d-none');
-                    // }
                     var total = 0;
                     document.querySelectorAll('#product-list tbody tr:not(#no-data-row)').forEach(function(row) {
                         var quantityInput = row.querySelector('.product-qty');
@@ -378,6 +362,42 @@
                             $("#add_transaction_btn").text('Add Transaction');
                         }
                     });
+                });
+
+                // delete transaction_product ajax request
+                $(document).on('click', '.deleteIcon', function(e) {
+                    e.preventDefault();
+                    let transactionCode = $(this).attr('transaction-code');
+                    console.log('Transaction Code:', transactionCode); // Debug output
+                    let csrf = '{{ csrf_token() }}';
+                    Swal.fire({
+                        title: 'Are you sure?',
+                        text: "You won't be able to revert this!",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        cancelButtonText: 'No',
+                        confirmButtonColor: '#5D87FF',
+                        cancelButtonColor: '#FA896B',
+                        confirmButtonText: 'Yes'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            $.ajax({
+                                url: '{{ route('transactions.delete') }}',
+                                method: 'DELETE',
+                                data: {
+                                    transaction_code: transactionCode,
+                                    _token: csrf
+                                },
+                                success: function(response) {
+                                    Toast.fire({
+                                        icon: 'success',
+                                        title: 'Transaction has been deleted.'
+                                    });
+                                    $('#myTable').DataTable().ajax.reload();
+                                }
+                            });
+                        }
+                    })
                 });
             });
         </script>

@@ -120,8 +120,9 @@ class TransactionController extends Controller
     }
 
     public function destroy(Request $request) {
-        $id = $request->id;
-        $transaction = Transaction::find($id);
+        $transactionCode = $request->transaction_code;
+        $transaction = Transaction::find($transactionCode);
+        $transaction->transactionProducts()->delete();
         $transaction->delete();
     }
 }

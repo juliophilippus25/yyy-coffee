@@ -19,7 +19,7 @@ class TransactionProduct extends Model
 
     public function transaction()
     {
-        return $this->belongsTo(Transaction::class, 'transaction_code', 'transaction_code_product');
+        return $this->belongsTo(Transaction::class, 'transaction_code_product', 'transaction_code');
     }
 
     public function product()
