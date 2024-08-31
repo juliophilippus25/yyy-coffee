@@ -16,8 +16,8 @@ return new class extends Migration
         Schema::create('transaction_products', function (Blueprint $table) {
             $table->id();
             $table->string('transaction_code_product', 12);
-            $table->foreign('transaction_code_product')->references('transaction_code')->on('transactions')->cascadeOnUpdate()->cascadeOnDelete(); // Mengambil data transaksi
-            $table->foreignId('product_id')->constrained('products')->cascadeOnUpdate()->cascadeOnDelete(); // Mengambil data dari produk
+            $table->foreign('transaction_code_product')->references('transaction_code')->on('transactions')->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreignId('product_id')->constrained('products')->cascadeOnUpdate()->cascadeOnDelete();
             $table->integer('quantity');
             $table->decimal('unit_price', 10, 0);
             $table->decimal('total_price', 10, 0);

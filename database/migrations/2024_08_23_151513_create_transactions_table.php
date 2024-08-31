@@ -14,13 +14,11 @@ return new class extends Migration
     public function up()
     {
         Schema::create('transactions', function (Blueprint $table) {
-            $table->string('transaction_code', 12)->primary();
-            $table->date('transaction_date');
+            $table->string('transaction_code', 12)->primary()->unique();
             $table->string('customer_name');
             $table->decimal('total_amount', 10, 0);
-            $table->string('status')->default('Pending');
-            $table->foreignId('payment_id')->constrained('payments')->cascadeOnUpdate()->cascadeOnDelete(); // Jenis pembayaran
-            $table->foreignId('user_id')->constrained('users')->cascadeOnUpdate()->cascadeOnDelete(); // Pengguna yang melakukan input data
+            $table->foreignId('payment_id')->constrained('payments')->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreignId('user_id')->constrained('users')->cascadeOnUpdate()->cascadeOnDelete();
             $table->timestamps();
         });
     }

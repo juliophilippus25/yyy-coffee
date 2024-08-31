@@ -23,10 +23,9 @@ class TransactionController extends Controller
     {
         $userId = Auth::id();
         $userRole = Auth::user()->roles;
-        $transaction = Transaction::get();
 
-        $payments = Payment::all(); // Ambil semua metode pembayaran
-        $products = Product::all(); // Ambil semua produk
+        $payments = Payment::all();
+        $products = Product::all();
 
         if ($request->ajax()) {
             if ($userRole == 'Admin'){
@@ -47,21 +46,18 @@ class TransactionController extends Controller
 
     private function generateUniqueTransactionCode()
     {
-        $prefix = 'Y3'; // Prefiks untuk nama coffeshop
-        $yearMonth = date('ym'); // Format: YYMM
+        $prefix = 'Y3';
+        $yearMonth = date('ym');
         $formattedPrefix = $prefix . '-' . $yearMonth . '-';
 
-        // Ambil nomor urut transaksi terakhir untuk bulan dan tahun yang sama
         $lastTransaction = Transaction::where('transaction_code', 'like', $formattedPrefix . '%')
             ->orderBy('transaction_code', 'desc')
             ->first();
 
         if ($lastTransaction) {
-            // Ambil nomor urut terakhir dan tambahkan 1
             $lastNumber = (int)substr($lastTransaction->transaction_code, -4);
             $newNumber = str_pad($lastNumber + 1, 4, '0', STR_PAD_LEFT);
         } else {
-            // Jika belum ada transaksi di bulan ini, mulai dari 0001
             $newNumber = '0001';
         }
 
@@ -93,10 +89,8 @@ class TransactionController extends Controller
         // Create the transaction
         $transaction = Transaction::create([
             'transaction_code' => $transactionCode,
-            'transaction_date' => now(),
             'customer_name' => $request->customer_name,
             'total_amount' => $totalAmount,
-            'status' => 'Pending', // Default status
             'payment_id' => $request->payment_id,
             'user_id' => $request->user_id
         ]);

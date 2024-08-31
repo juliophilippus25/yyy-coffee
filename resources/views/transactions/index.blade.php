@@ -15,9 +15,8 @@
                 <table class="table table-hover table-striped" id="myTable">
                     <thead>
                         <tr>
-                            <th class="col-md-4">Transaction Code</th>
-                            <th class="col-md-4">Customer Name</th>
-                            <th class="col-md-2">Status</th>
+                            <th class="col-md-5">Transaction Code</th>
+                            <th class="col-md-5">Customer Name</th>
                             <th class="col-md-2">Action</th>
                         </tr>
                     </thead>
@@ -38,9 +37,8 @@
                     <form action="#" method="POST" id="add_transaction_form" enctype="multipart/form-data">
                         @csrf
                         <div class="modal-body p-4">
+                            <input type="hidden" name="user_id" id="user_id" value="{{ Auth::user()->id }}">
                             <div class="row">
-                                {{-- <input type="text" name="products" id="products"> --}}
-                                <input type="hidden" name="user_id" id="user_id" value="{{ Auth::user()->id }}">
                                 <div class="mb-3">
                                     <label for="customer_name" class="form-label">Customer Name <b
                                             style="color:Tomato;">*</b></label>
@@ -74,7 +72,7 @@
                                     <div class="mt-3 d-none" id="total-amount-container">
                                         <div class="d-flex justify-content-between align-items-center">
                                             <div></div>
-                                            <p>Total Amount: <span id="total-price"></span></p>
+                                            <p>Total Amount Due: <span id="total-price"></span></p>
                                         </div>
                                     </div>
                                 </div>
@@ -93,19 +91,18 @@
                                     <span class="text-danger"></span>
                                 </div>
                             </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" id="add_transaction_btn" class="btn btn-primary">Add
-                                Transaction</button>
-                        </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                                <button type="submit" id="add_transaction_btn" class="btn btn-primary">Add
+                                    Transaction</button>
+                            </div>
                     </form>
                 </div>
             </div>
         </div>
         {{-- End Add Modal --}}
 
-        <!-- Add Modal Transaction_Product -->
+        <!-- Add Transaction_Product Modal -->
         <div class="modal fade" id="selectProductModal" tabindex="-1" aria-labelledby="selectProductLabel"
             aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
@@ -147,7 +144,7 @@
                         </table>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
                     </div>
                 </div>
             </div>
@@ -170,23 +167,6 @@
                         data: 'customer_name',
                         name: 'customer_name'
                     }, {
-                        data: 'status',
-                        name: 'status',
-                        render: function(data, type, row) {
-                            // Menentukan kelas tombol berdasarkan status
-                            var buttonClass = data === 'Pending' ? 'btn-warning' : 'btn-success';
-                            var buttonText = data === 'Pending' ? 'Pending' : 'Completed';
-
-                            // Menghasilkan tombol dengan kelas yang sesuai
-                            var toggleStatusButton =
-                                '<button class="btn btn-sm rounded-3 ' + buttonClass +
-                                ' toggle-status" data-id="' +
-                                row.id + '" data-status="' + data + '">' +
-                                buttonText +
-                                '</button>';
-                            return toggleStatusButton;
-                        }
-                    }, {
                         data: 'action',
                         name: 'action'
                     }],
@@ -195,7 +175,6 @@
                     ]
                 });
             });
-
 
             function openProductModal() {
                 // Show product modal without closing the main modal
